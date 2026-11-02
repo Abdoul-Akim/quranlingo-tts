@@ -47,3 +47,22 @@ def test_brackets_before_punctuation():
 
 def test_no_brackets_left_anywhere():
     assert "(" not in prepare_text("Abundant good (a river (in Jannah))", "en")
+
+
+# New: Turkish attaches case endings to the honorific symbol ("Peygamber ﷺ'i").
+# Spoken, the ending belongs on the noun, with Turkish buffer letters (y, n) fixed up.
+@pytest.mark.parametrize("written, spoken", [
+    ("Peygamberimiz ﷺ'yi hor", "Peygamberimizi, sallallahu aleyhi ve sellem, hor"),
+    ("Peygamber ﷺ'i", "Peygamberi, sallallahu aleyhi ve sellem"),
+    ("Peygamberimiz ﷺ'e", "Peygamberimize, sallallahu aleyhi ve sellem"),
+    ("Peygamberimiz ﷺ'in", "Peygamberimizin, sallallahu aleyhi ve sellem"),
+    ("Nebi ﷺ'nin", "Nebinin, sallallahu aleyhi ve sellem"),
+    ("Nebi ﷺ'ye", "Nebiye, sallallahu aleyhi ve sellem"),
+    ("Nebi ﷺ’ye", "Nebiye, sallallahu aleyhi ve sellem"),  # typographic apostrophe
+])
+def test_turkish_suffix_moves_to_the_noun(written, spoken):
+    assert prepare_text(written, "tr") == spoken
+
+
+def test_symbol_in_brackets_is_still_spoken():
+    assert prepare_text("el Profeta (ﷺ) dijo", "en") == "el Profeta, peace be upon him, dijo"
