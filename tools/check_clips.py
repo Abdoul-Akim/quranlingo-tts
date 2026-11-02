@@ -16,6 +16,7 @@ import unicodedata
 from pathlib import Path
 
 import jiwer
+import librosa
 import numpy as np
 import pyworld as pw
 import soundfile as sf
@@ -34,6 +35,15 @@ def normalise(text: str) -> str:
     text = unicodedata.normalize("NFKC", text).lower()
     text = "".join(" " if unicodedata.category(c).startswith("P") or c in string.punctuation else c for c in text)
     return " ".join(text.split())
+
+
+def load_for_asr(path) -> np.ndarray:
+    # Whisper wants 16 kHz mono float32 samples. We pass samples, not a file path, because
+    # faster-whisper 1.2.1 cannot decode files with the installed av 19.
+    audio, sr = sf.read(path, dtype="float32")
+    if audio.ndim > 1:
+        audio = audio.mean(axis=1)
+    return librosa.resample(audio, orig_sr=sr, target_sr=16000).astype(np.float32)
 
 
 def median_pitch(audio: np.ndarray, sr: int) -> float:
@@ -70,7 +80,7 @@ if __name__ == "__main__":
         if audio.ndim > 1:
             audio = audio.mean(axis=1)
         expected = texts.get("*", texts.get(wav.stem.split("__")[0], ""))
-        segments, _ = whisper.transcribe(str(wav), language=language, beam_size=5)
+        segments, _ = whisper.transcribe(load_for_asr(wav), language=language, beam_size=5)
         heard = " ".join(s.text.strip() for s in segments)
         ref, hyp = normalise(expected), normalise(heard)
         done[str(wav.relative_to(folder))] = {
