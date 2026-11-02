@@ -1,0 +1,10 @@
+[project]
+name = "chatterbox"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "chatterbox-tts>=0.1.7",
+]
+
+[tool.uv.sources]
+chatterbox-tts = { git = "https://github.com/resemble-ai/chatterbox", rev = "5de7a54aa4e5e2baadb0182dde554908b48b85c2" }

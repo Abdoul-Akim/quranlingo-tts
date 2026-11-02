@@ -1,0 +1,76 @@
+# Shared settings for the QuranLingo characters and languages, used by every engine script.
+# Translations here are drafts and must be checked by a native speaker before release.
+
+# Languages used in the app, in the order we work on them.
+LANGUAGES = ["en", "fr", "de", "tr", "ar", "hi", "ur"]
+
+LANGUAGE_NAMES = {
+    "en": "English", "fr": "French", "de": "German", "tr": "Turkish",
+    "ar": "Arabic", "hi": "Hindi", "ur": "Urdu",
+}
+
+# Characters always appear in this order.
+CHARACTERS = ["ali", "fatima", "omar", "zahra"]
+
+CHARACTER_LABELS = {
+    "ali": "Ali (boy, 14)",
+    "fatima": "Fatima (woman, 29)",
+    "omar": "Omar (man, 50)",
+    "zahra": "Zahra (girl, 10)",
+}
+
+# Voice design descriptions, several wordings per character. Voice design results vary,
+# so we try more than one wording and let listeners choose.
+DESCRIPTIONS = {
+    "ali": {
+        "v1": "A 14-year-old boy, young teenage voice, light and slightly high, not yet deep, calm, serious and studious, warm and friendly",
+        "v2": "A teenage boy around fourteen, clear youthful voice that has not fully broken, gentle, thoughtful and kind",
+        "v3": "A young boy about fourteen years old, bright and clean voice, calm and confident, friendly",
+    },
+    "fatima": {
+        "v1": "A woman in her late twenties, warm, nurturing and intelligent, calm, gentle and reassuring, slightly motherly",
+        "v2": "A young woman around thirty, soft and kind voice, clear and composed, comforting and supportive",
+    },
+    "omar": {
+        "v1": "A man around fifty, calm, wise and grounded, soft-spoken, warm and fatherly, steady and reassuring",
+        "v2": "A middle-aged man of about fifty, deep, gentle and kind voice, slow and thoughtful, a beloved elder",
+    },
+    "zahra": {
+        "v1": "A 10-year-old girl, child's voice, high and bright, bubbly, curious and full of energy",
+        "v2": "A little girl around ten years old, lively and talkative, cheerful high-pitched child voice, playful",
+        "v3": "A young girl about ten years old, sweet, animated and expressive voice, excited and curious",
+    },
+}
+
+# Method 3 for the children: design a light adult female voice, then shift it toward the child
+# (see tools/age_shift.py). Research suggests adult female voices are the closest adult start point.
+FROM_FEMALE_DESCRIPTIONS = {
+    "ali": "A young woman with a light, boyish voice, clear and calm, friendly",
+    "zahra": "A young woman with a light, girlish, bright voice, cheerful and energetic",
+}
+
+# Typical speaking pitch (median, in Hz) we aim for. Used to rank takes automatically.
+TARGET_PITCH_HZ = {
+    "ali": (165, 235),
+    "fatima": (175, 245),
+    "omar": (85, 145),
+    "zahra": (235, 330),
+}
+
+# The calm reference passage every voice reads. Same meaning in every language.
+PASSAGES = {
+    "en": "Hello, and welcome. Today we are going to read a short story together. Are you ready? Listen carefully and take your time. There is no rush at all.",
+    "fr": "Bonjour et bienvenue. Aujourd'hui, nous allons lire ensemble une petite histoire. On y va ? Écoute bien et prends ton temps. Rien ne presse.",
+    "de": "Hallo und herzlich willkommen. Heute lesen wir zusammen eine kurze Geschichte. Bist du bereit? Hör gut zu und nimm dir Zeit. Es gibt überhaupt keine Eile.",
+    "tr": "Merhaba, hoş geldin. Bugün birlikte kısa bir hikâye okuyacağız. Hazır mısın? Dikkatlice dinle ve acele etme. Hiç acelemiz yok.",
+    "ar": "مرحبًا، وأهلًا وسهلًا بكم. اليوم سنقرأ معًا قصة قصيرة. هل نبدأ؟ استمعوا جيدًا وخذوا وقتكم، فلا داعي للعجلة أبدًا.",
+    "hi": "नमस्ते, और आपका स्वागत है। आज हम साथ मिलकर एक छोटी सी कहानी पढ़ेंगे। क्या आप तैयार हैं? ध्यान से सुनिए और अपना समय लीजिए। कोई जल्दी नहीं है।",
+    "ur": "السلام علیکم، اور خوش آمدید۔ آج ہم مل کر ایک چھوٹی سی کہانی پڑھیں گے۔ کیا آپ تیار ہیں؟ غور سے سنیے اور اپنا وقت لیجیے۔ کوئی جلدی نہیں ہے۔",
+}
+
+# Engines that officially support each language (checked 2026-10-24 and 2026-11-02).
+# VoxCPM2 is also tried on Urdu as an untested experiment.
+ENGINE_LANGUAGES = {
+    "voxcpm2": ["en", "fr", "de", "tr", "ar", "hi"],
+    "chatterbox": ["en", "fr", "de", "tr", "ar", "hi"],
+}

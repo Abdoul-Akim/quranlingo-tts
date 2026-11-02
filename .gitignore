@@ -1,0 +1,25 @@
+# Files Git must never upload.
+
+# Answer keys of the listening test: they reveal which clip is which. Never upload.
+keys/
+
+# QuranLingo's question spreadsheet: company content.
+*.xlsx
+
+# Generated audio (large, reproducible from the scripts) and reference voices
+# (brand assets; whether to publish them is a separate decision).
+outputs/
+voices/
+
+# The listening site is its own repository (Render deploys from it).
+listening_site/
+
+# Local Python environments and caches.
+.venv/
+__pycache__/
+*.py[oc]
+.pytest_cache/
+.DS_Store
+
+# The empty repository folder uv init created, kept aside.
+.git-empty-from-uv-init/

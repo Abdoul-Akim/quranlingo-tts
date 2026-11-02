@@ -1,0 +1,19 @@
+[project]
+name = "voxcpm2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Abdoul-Akim", email = "silueakim2007@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "voxcpm>=2.0.3",
+]
+
+[project.scripts]
+voxcpm2 = "voxcpm2:main"
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
