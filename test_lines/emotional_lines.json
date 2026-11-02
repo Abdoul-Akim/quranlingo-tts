@@ -1,0 +1,85 @@
+{
+  "_note": "Emotional test lines in every app language. English is approved; the other languages are drafts that need a native speaker's check before release.",
+  "lines": [
+    {
+      "id": "e01", "character": "omar", "emotion": "neutral", "intensity": "low",
+      "en": "The Quran was revealed over about twenty-three years, in the cities of Makkah and Madinah.",
+      "fr": "Le Coran a été révélé sur environ vingt-trois ans, dans les villes de La Mecque et de Médine.",
+      "de": "Der Koran wurde über etwa dreiundzwanzig Jahre hinweg offenbart, in den Städten Mekka und Medina.",
+      "tr": "Kur'an, Mekke ve Medine şehirlerinde yaklaşık yirmi üç yıl boyunca indirildi.",
+      "ar": "نزل القرآن على مدى ثلاث وعشرين سنة تقريبًا، في مكة والمدينة.",
+      "hi": "क़ुरआन लगभग तेईस सालों के दौरान मक्का और मदीना में नाज़िल हुआ।",
+      "ur": "قرآن تقریباً تیئیس سال کے عرصے میں، مکہ اور مدینہ کے شہروں میں نازل ہوا۔"
+    },
+    {
+      "id": "e02", "character": "fatima", "emotion": "warm", "intensity": "medium",
+      "en": "Welcome back! It's so good to see you again. Shall we continue our journey together?",
+      "fr": "Bon retour ! Ça fait vraiment plaisir de te revoir. On continue notre voyage ensemble ?",
+      "de": "Willkommen zurück! Wie schön, dich wiederzusehen. Wollen wir unsere Reise gemeinsam fortsetzen?",
+      "tr": "Tekrar hoş geldin! Seni yeniden görmek çok güzel. Yolculuğumuza birlikte devam edelim mi?",
+      "ar": "أهلًا بعودتك! سعيدة جدًا برؤيتك من جديد. هل نكمل رحلتنا معًا؟",
+      "hi": "फिर से स्वागत है! आपको दोबारा देखकर बहुत अच्छा लगा। क्या हम साथ मिलकर अपना सफ़र जारी रखें?",
+      "ur": "دوبارہ خوش آمدید! آپ کو پھر سے دیکھ کر بہت خوشی ہوئی۔ کیا ہم مل کر اپنا سفر جاری رکھیں؟"
+    },
+    {
+      "id": "e03", "character": "fatima", "emotion": "happy", "intensity": "high",
+      "en": "You got it right! Three lessons in a row, and you remembered every single word!",
+      "fr": "Bonne réponse ! Trois leçons d'affilée, et tu n'as oublié aucun mot !",
+      "de": "Richtig! Drei Lektionen hintereinander, und du hast dir jedes einzelne Wort gemerkt!",
+      "tr": "Doğru bildin! Üst üste üç ders, ve her kelimeyi hatırladın!",
+      "ar": "إجابة صحيحة! ثلاثة دروس متتالية، ولم تنسَ كلمة واحدة!",
+      "hi": "बिल्कुल सही! लगातार तीन पाठ, और आपको हर एक शब्द याद रहा!",
+      "ur": "بالکل درست! لگاتار تین سبق، اور آپ کو ہر ایک لفظ یاد رہا!"
+    },
+    {
+      "id": "e04", "character": "zahra", "emotion": "excited", "intensity": "high",
+      "en": "Guess what? Today we're learning the story of the people of the cave, and it is one of the most amazing stories ever told!",
+      "fr": "Devine quoi ? Aujourd'hui, nous découvrons l'histoire des gens de la caverne, et c'est l'une des histoires les plus incroyables jamais racontées !",
+      "de": "Weißt du was? Heute lernen wir die Geschichte der Leute der Höhle, und sie ist eine der erstaunlichsten Geschichten, die je erzählt wurden!",
+      "tr": "Bil bakalım ne oldu? Bugün mağara arkadaşlarının hikâyesini öğreniyoruz, ve bu şimdiye kadar anlatılmış en muhteşem hikâyelerden biri!",
+      "ar": "هل تعرف ماذا؟ اليوم سنتعلم قصة أصحاب الكهف، وهي من أروع القصص على الإطلاق!",
+      "hi": "पता है क्या? आज हम गुफा वालों की कहानी सीखेंगे, और यह अब तक सुनाई गई सबसे अद्भुत कहानियों में से एक है!",
+      "ur": "پتا ہے کیا؟ آج ہم اصحابِ کہف کا قصہ سیکھیں گے، اور یہ اب تک سنائے گئے سب سے حیرت انگیز قصوں میں سے ایک ہے!"
+    },
+    {
+      "id": "e05", "character": "omar", "emotion": "sad", "intensity": "medium",
+      "en": "Yaqub missed his son Yusuf so deeply that he wept for many years. And yet, he never lost hope.",
+      "fr": "Yaqoub souffrait tellement de l'absence de son fils Youssouf qu'il a pleuré pendant de longues années. Et pourtant, il n'a jamais perdu espoir.",
+      "de": "Yaqub vermisste seinen Sohn Yusuf so sehr, dass er viele Jahre lang weinte. Und doch verlor er nie die Hoffnung.",
+      "tr": "Yakup, oğlu Yusuf'u o kadar çok özledi ki yıllarca ağladı. Yine de umudunu hiç kaybetmedi.",
+      "ar": "اشتاق يعقوب إلى ابنه يوسف شوقًا شديدًا حتى بكى سنوات طويلة، ومع ذلك لم يفقد الأمل أبدًا.",
+      "hi": "याक़ूब को अपने बेटे यूसुफ़ की इतनी याद आती थी कि वे कई सालों तक रोते रहे। फिर भी, उन्होंने कभी उम्मीद नहीं छोड़ी।",
+      "ur": "یعقوب کو اپنے بیٹے یوسف کی اتنی یاد آتی تھی کہ وہ کئی سال تک روتے رہے۔ پھر بھی، انہوں نے کبھی امید نہیں چھوڑی۔"
+    },
+    {
+      "id": "e06", "character": "fatima", "emotion": "calm", "intensity": "low",
+      "en": "Take a slow, deep breath. There is no rush. Listen once more, and try again when you are ready.",
+      "fr": "Prends une grande inspiration, lentement. Rien ne presse. Écoute encore une fois, et réessaie quand tu le souhaites.",
+      "de": "Atme langsam und tief ein. Es gibt keine Eile. Hör noch einmal zu und versuch es erneut, wenn du bereit bist.",
+      "tr": "Yavaşça derin bir nefes al. Hiç acele yok. Bir kez daha dinle ve hazır olduğunda tekrar dene.",
+      "ar": "خذ نفسًا عميقًا ببطء. لا داعي للعجلة. استمع مرة أخرى، وحاول من جديد عندما تكون مستعدًا.",
+      "hi": "धीरे से एक गहरी साँस लीजिए। कोई जल्दी नहीं है। एक बार फिर सुनिए, और जब आप तैयार हों तब दोबारा कोशिश कीजिए।",
+      "ur": "آہستہ سے ایک گہری سانس لیجیے۔ کوئی جلدی نہیں ہے۔ ایک بار پھر سنیے، اور جب آپ تیار ہوں تو دوبارہ کوشش کیجیے۔"
+    },
+    {
+      "id": "e07", "character": "zahra", "emotion": "curious", "intensity": "medium",
+      "en": "Have you ever wondered why Ramadan starts a little earlier every year? Let's find out.",
+      "fr": "T'es-tu déjà demandé pourquoi le Ramadan commence un peu plus tôt chaque année ? Découvrons-le ensemble.",
+      "de": "Hast du dich schon einmal gefragt, warum der Ramadan jedes Jahr ein bisschen früher beginnt? Finden wir es heraus.",
+      "tr": "Ramazan'ın neden her yıl biraz daha erken başladığını hiç merak ettin mi? Hadi birlikte öğrenelim.",
+      "ar": "هل تساءلت يومًا لماذا يبدأ رمضان مبكرًا قليلًا كل عام؟ هيا نكتشف ذلك.",
+      "hi": "क्या आपने कभी सोचा है कि रमज़ान हर साल थोड़ा पहले क्यों शुरू होता है? चलिए पता लगाते हैं।",
+      "ur": "کیا آپ نے کبھی سوچا ہے کہ رمضان ہر سال تھوڑا پہلے کیوں شروع ہوتا ہے؟ آئیے معلوم کرتے ہیں۔"
+    },
+    {
+      "id": "e08", "character": "ali", "emotion": "serious", "intensity": "high",
+      "en": "Remember this: honesty matters, even when no one else is watching.",
+      "fr": "Souviens-toi : l'honnêteté compte, même quand personne ne regarde.",
+      "de": "Denk daran: Ehrlichkeit zählt, auch wenn niemand zusieht.",
+      "tr": "Bunu unutma: Kimse görmese bile dürüstlük önemlidir.",
+      "ar": "تذكّر دائمًا: الصدق مهم، حتى عندما لا يراك أحد.",
+      "hi": "यह याद रखिए: ईमानदारी मायने रखती है, तब भी जब कोई नहीं देख रहा हो।",
+      "ur": "یہ یاد رکھیے: ایمانداری اہم ہے، اس وقت بھی جب کوئی نہیں دیکھ رہا ہو۔"
+    }
+  ]
+}

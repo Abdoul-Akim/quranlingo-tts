@@ -20,6 +20,23 @@ COMMA = {"ar": "،", "ur": "،"}
 PUNCTUATION = r"?.!,;:؟،۔।"
 
 
+TURKISH_VOWELS = "aeıioöuüâîû"
+
+
+def _turkish_suffix_to_noun(match: re.Match) -> str:
+    # Turkish writes the case ending after the symbol: "Peygamber ﷺ'i". Spoken, it belongs on
+    # the noun ("Peygamberi"), and the buffer letter depends on how the noun ends:
+    # after a consonant drop a leading y or n ("ﷺ'yi" gives "Peygamberimizi"),
+    # after a vowel keep it, or add one ("Nebi ﷺ'e" would give "Nebiye").
+    noun, suffix = match.group(1), match.group(2)
+    ends_in_vowel = noun[-1].lower() in TURKISH_VOWELS
+    if not ends_in_vowel and len(suffix) > 1 and suffix[0] in "yn" and suffix[1] in TURKISH_VOWELS:
+        suffix = suffix[1:]
+    elif ends_in_vowel and suffix[0] in TURKISH_VOWELS:
+        suffix = ("n" if suffix in ("in", "ın", "un", "ün") else "y") + suffix
+    return f"{noun}{suffix} ﷺ"
+
+
 def prepare_text(text: str, language: str) -> str:
     comma = COMMA.get(language, ",")
 
@@ -28,6 +45,9 @@ def prepare_text(text: str, language: str) -> str:
     # Innermost brackets first, so nested ones work too.
     while re.search(r"\([^()]*\)", text):
         text = re.sub(r"\s*\(([^()]*)\)\s*", rf"{comma} \1{comma} ", text)
+
+    if language == "tr":
+        text = re.sub(r"(\w+)\s*ﷺ['’](\w+)", _turkish_suffix_to_noun, text)
 
     # "the Prophet ﷺ?"      becomes "the Prophet, peace be upon him?"
     # "the Prophet ﷺ from"  becomes "the Prophet, peace be upon him, from"

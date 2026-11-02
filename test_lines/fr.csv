@@ -1,0 +1,17 @@
+id,character,emotion,intensity,source_ref,text
+e01,omar,neutral,low,,"Le Coran a été révélé sur environ vingt-trois ans, dans les villes de La Mecque et de Médine."
+e02,fatima,warm,medium,,Bon retour ! Ça fait vraiment plaisir de te revoir. On continue notre voyage ensemble ?
+e03,fatima,happy,high,,"Bonne réponse ! Trois leçons d'affilée, et tu n'as oublié aucun mot !"
+e04,zahra,excited,high,,"Devine quoi ? Aujourd'hui, nous découvrons l'histoire des gens de la caverne, et c'est l'une des histoires les plus incroyables jamais racontées !"
+e05,omar,sad,medium,,"Yaqoub souffrait tellement de l'absence de son fils Youssouf qu'il a pleuré pendant de longues années. Et pourtant, il n'a jamais perdu espoir."
+e06,fatima,calm,low,,"Prends une grande inspiration, lentement. Rien ne presse. Écoute encore une fois, et réessaie quand tu le souhaites."
+e07,zahra,curious,medium,,T'es-tu déjà demandé pourquoi le Ramadan commence un peu plus tôt chaque année ? Découvrons-le ensemble.
+e08,ali,serious,high,,"Souviens-toi : l'honnêteté compte, même quand personne ne regarde."
+q01,zahra,question,fixed,كو٢,Comment la sourate a-t-elle répondu à ceux qui ont blâmé le Prophète ﷺ?
+q02,omar,question,fixed,نب٣,Sous quelle description Djahannam a-t-elle été mentionnée dans la sourate?
+q03,fatima,question,fixed,كا٦,En quoi la sourate Al-Kafiroûn est-elle célèbre parmi les sourates?
+q04,ali,question,fixed,زل٤,Par quoi commence le récit du Jour du Jugement dans la sourate?
+q04_opt1,ali,option,fixed,زل٤,Un grand séisme par lequel la terre rejette ses fardeaux
+q04_opt2,ali,option,fixed,زل٤,Un souffle dans la Trompe qui foudroie les gens
+q04_opt3,ali,option,fixed,زل٤,La scission du ciel et la dispersion des étoiles
+q04_opt4,ali,option,fixed,زل٤,Le bris des montagnes et leur déplacement

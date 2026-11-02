@@ -1,0 +1,17 @@
+id,character,emotion,intensity,source_ref,text
+e01,omar,neutral,low,,"Kur'an, Mekke ve Medine şehirlerinde yaklaşık yirmi üç yıl boyunca indirildi."
+e02,fatima,warm,medium,,Tekrar hoş geldin! Seni yeniden görmek çok güzel. Yolculuğumuza birlikte devam edelim mi?
+e03,fatima,happy,high,,"Doğru bildin! Üst üste üç ders, ve her kelimeyi hatırladın!"
+e04,zahra,excited,high,,"Bil bakalım ne oldu? Bugün mağara arkadaşlarının hikâyesini öğreniyoruz, ve bu şimdiye kadar anlatılmış en muhteşem hikâyelerden biri!"
+e05,omar,sad,medium,,"Yakup, oğlu Yusuf'u o kadar çok özledi ki yıllarca ağladı. Yine de umudunu hiç kaybetmedi."
+e06,fatima,calm,low,,Yavaşça derin bir nefes al. Hiç acele yok. Bir kez daha dinle ve hazır olduğunda tekrar dene.
+e07,zahra,curious,medium,,Ramazan'ın neden her yıl biraz daha erken başladığını hiç merak ettin mi? Hadi birlikte öğrenelim.
+e08,ali,serious,high,,Bunu unutma: Kimse görmese bile dürüstlük önemlidir.
+q01,zahra,question,fixed,كو٢,"Sûre, Peygamberimiz ﷺ'yi hor görenlere nasıl bir yanıt verdi?"
+q02,omar,question,fixed,نب٣,Surede cehennem nasıl anlatılıyor?
+q03,fatima,question,fixed,كا٦,Kur'an'ın sureleri arasında Suretu'l-Kâfirûn neden ünlüdür?
+q04,ali,question,fixed,زل٤,Kıyamet günü sahnesi surede ne ile başlar?
+q04_opt1,ali,option,fixed,زل٤,"Toprak, ağırlıklarını çıkartan büyük bir depremle"
+q04_opt2,ali,option,fixed,زل٤,İnsanların kendinden geçtiği bir sûra üfleme ile
+q04_opt3,ali,option,fixed,زل٤,Gökyüzünün yarılması ve yıldızların dağılmasıyla
+q04_opt4,ali,option,fixed,زل٤,Dağların kırılarak yürütülmesiyle

@@ -1,0 +1,17 @@
+id,character,emotion,intensity,source_ref,text
+e01,omar,neutral,low,,"Der Koran wurde über etwa dreiundzwanzig Jahre hinweg offenbart, in den Städten Mekka und Medina."
+e02,fatima,warm,medium,,"Willkommen zurück! Wie schön, dich wiederzusehen. Wollen wir unsere Reise gemeinsam fortsetzen?"
+e03,fatima,happy,high,,"Richtig! Drei Lektionen hintereinander, und du hast dir jedes einzelne Wort gemerkt!"
+e04,zahra,excited,high,,"Weißt du was? Heute lernen wir die Geschichte der Leute der Höhle, und sie ist eine der erstaunlichsten Geschichten, die je erzählt wurden!"
+e05,omar,sad,medium,,"Yaqub vermisste seinen Sohn Yusuf so sehr, dass er viele Jahre lang weinte. Und doch verlor er nie die Hoffnung."
+e06,fatima,calm,low,,"Atme langsam und tief ein. Es gibt keine Eile. Hör noch einmal zu und versuch es erneut, wenn du bereit bist."
+e07,zahra,curious,medium,,"Hast du dich schon einmal gefragt, warum der Ramadan jedes Jahr ein bisschen früher beginnt? Finden wir es heraus."
+e08,ali,serious,high,,"Denk daran: Ehrlichkeit zählt, auch wenn niemand zusieht."
+q01,zahra,question,fixed,كو٢,"Womit antwortete die Sure auf diejenigen, die den Propheten ﷺ kritisierten?"
+q02,omar,question,fixed,نب٣,Wie wird die Hölle in der Sure beschrieben?
+q03,fatima,question,fixed,كا٦,Womit ist die Sure al-Kafirūn unter den Suren bekannt?
+q04,ali,question,fixed,زل٤,Womit beginnt die Szene des Jüngsten Tages in der Sure?
+q04_opt1,ali,option,fixed,زل٤,"Ein gewaltiges Beben, bei dem die Erde ihre Lasten herausgibt"
+q04_opt2,ali,option,fixed,زل٤,"Ein Blasen ins Horn, bei dem die Menschen bewusstlos werden"
+q04_opt3,ali,option,fixed,زل٤,Das Aufreißen des Himmels und das Zerstreuen der Sterne
+q04_opt4,ali,option,fixed,زل٤,Das Zerschlagen der Berge und ihr Bewegen
