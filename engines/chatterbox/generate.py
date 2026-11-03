@@ -1,6 +1,6 @@
 # Generate the test lines with Chatterbox Multilingual V3, cloning each character's reference
 # voice and setting the emotion dials from the line's intensity (tools/line_styles.py).
-# Resumable: clips that already exist are skipped.
+# Resumable: clips that already exist are skipped, unless their voice changed since.
 #
 # Run from engines/chatterbox:
 #   uv run python generate.py en fr de                native voices
@@ -16,7 +16,7 @@ from chatterbox.mtl_tts import ChatterboxMultilingualTTS
 
 TTS_DIR = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(TTS_DIR / "tools"))
-from line_jobs import DEFAULT_SET, output_dir, read_lines, voice_path
+from line_jobs import DEFAULT_SET, is_done, output_dir, read_lines, voice_path
 from line_styles import chatterbox_args, engines_for
 from text_rules import prepare_text
 
@@ -39,7 +39,7 @@ if __name__ == "__main__":
         for line in read_lines(language, line_set):
             out_path = out_dir / f"{line['id']}.wav"
             voice = voice_path(language, line["character"], voices_from)
-            if out_path.exists():
+            if is_done(out_path, voice):
                 continue
             if not voice.exists():
                 print(f"{language} {line['id']}: no voice {voice.relative_to(TTS_DIR)}, skipped", flush=True)

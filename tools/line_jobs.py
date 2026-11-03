@@ -22,3 +22,8 @@ def read_lines(language: str, line_set: str = DEFAULT_SET) -> list[dict]:
     name = f"{language}.csv" if line_set == DEFAULT_SET else f"{line_set}_{language}.csv"
     with (TTS_DIR / "test_lines" / name).open(encoding="utf-8") as f:
         return list(csv.DictReader(f))
+
+
+def is_done(clip: Path, voice: Path) -> bool:
+    # A clip counts as done only if it is newer than the voice it was cloned from.
+    return clip.exists() and (not voice.exists() or clip.stat().st_mtime >= voice.stat().st_mtime)
