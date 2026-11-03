@@ -23,3 +23,12 @@ def test_experiment_uses_the_other_languages_voice():
 def test_read_lines_reads_the_language_file():
     rows = read_lines("de")
     assert rows[0]["id"] == "e01" and rows[0]["text"].startswith("Der Koran")
+
+
+def test_variation_clips_go_to_their_own_folder():
+    assert output_dir("en", "voxcpm2", line_set="variations") == TTS_DIR / "outputs" / "variations_en" / "voxcpm2"
+
+
+def test_read_lines_can_read_another_set():
+    rows = read_lines("en", line_set="variations")
+    assert rows[0]["id"] == "ali_neutral"
