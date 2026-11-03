@@ -32,3 +32,16 @@ def test_variation_clips_go_to_their_own_folder():
 def test_read_lines_can_read_another_set():
     rows = read_lines("en", line_set="variations")
     assert rows[0]["id"] == "ali_neutral"
+
+
+def test_a_clip_made_before_its_voice_changed_is_redone(tmp_path):
+    # The English lines from 2026-10-24 used the old voices and were skipped as "done".
+    import os
+    from line_jobs import is_done
+    clip, voice = tmp_path / "e01.wav", tmp_path / "ali.wav"
+    assert not is_done(clip, voice)
+    clip.write_bytes(b"x"); voice.write_bytes(b"x")
+    os.utime(clip, (1000, 1000)); os.utime(voice, (2000, 2000))
+    assert not is_done(clip, voice)
+    os.utime(clip, (3000, 3000))
+    assert is_done(clip, voice)
