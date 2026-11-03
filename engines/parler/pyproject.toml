@@ -1,0 +1,11 @@
+[project]
+name = "parler"
+version = "0.1.0"
+requires-python = ">=3.11"
+dependencies = [
+    "parler-tts",
+    "soundfile>=0.14.0",
+]
+
+[tool.uv.sources]
+parler-tts = { git = "https://github.com/huggingface/parler-tts", rev = "d108732cd57788ec86bc857d99a6cabd66663d68" }
