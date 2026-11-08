@@ -2,7 +2,9 @@
 # Kept apart from the engine scripts so it can be tested without loading a model.
 from typing import NamedTuple
 
-from project_config import CHARACTERS, DESCRIPTIONS, FROM_FEMALE_DESCRIPTIONS, LANGUAGE_NAMES
+from project_config import (
+    CHARACTERS, DESCRIPTIONS, FROM_FEMALE_DESCRIPTIONS, LANGUAGE_NAMES, REDESIGN_DESCRIPTIONS, REDESIGN_SEEDS,
+)
 
 # English is where we choose the method, so it gets more takes than the other languages.
 CHILD_SEEDS = {"en": [1, 2, 3, 4, 5]}
@@ -28,6 +30,9 @@ def jobs_for(language: str) -> list[Job]:
             variants["from_female"] = FROM_FEMALE_DESCRIPTIONS[character]
         for variant, description in variants.items():
             for seed in seeds:
+                jobs.append(Job(character, variant, description + accent, seed))
+        for variant, description in REDESIGN_DESCRIPTIONS.get(character, {}).items():
+            for seed in REDESIGN_SEEDS.get(language, []):
                 jobs.append(Job(character, variant, description + accent, seed))
     return jobs
 

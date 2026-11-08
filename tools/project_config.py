@@ -42,6 +42,21 @@ DESCRIPTIONS = {
     },
 }
 
+# Redesign after the owner's listening (2026-11-06): Fatima sounded like a kid or robotic,
+# Omar not warm or fatherly enough. English only until the owner picks, 8 seeds each.
+REDESIGN_DESCRIPTIONS = {
+    "fatima": {
+        "v3": "A woman of about thirty, a mother, warm and mature voice, medium pitch, natural and relaxed, gently smiling",
+        "v4": "A grown woman around thirty, rich and warm mid-range voice, calm, caring and expressive, like a kind teacher",
+        "v5": "A thirty-year-old mother speaking softly to her child, warm, natural and lively, not high-pitched",
+    },
+    "omar": {
+        "v3": "A man around fifty, a loving father speaking to his children, warm and smiling voice, gentle and soft, calm and kind",
+        "v4": "A fatherly man of about fifty, warm, friendly and caring voice, gently encouraging, like a grandfather telling a story by the fire, not deep or stern",
+    },
+}
+REDESIGN_SEEDS = {"en": [1, 2, 3, 4, 5, 6, 7, 8]}
+
 # Method 3 for the children: design a light adult female voice, then shift it toward the child
 # (see tools/age_shift.py). Research suggests adult female voices are the closest adult start point.
 FROM_FEMALE_DESCRIPTIONS = {
@@ -52,7 +67,7 @@ FROM_FEMALE_DESCRIPTIONS = {
 # Typical speaking pitch (median, in Hz) we aim for. Used to rank takes automatically.
 TARGET_PITCH_HZ = {
     "ali": (165, 235),
-    "fatima": (175, 245),
+    "fatima": (175, 215),
     "omar": (85, 145),
     "zahra": (235, 330),
 }
