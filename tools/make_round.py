@@ -2,7 +2,7 @@
 #
 # Kinds of round:
 #   voices      Testers pick a take for each character. Clips are named <character>_seed<N>.wav.
-#   base        Testers pick each character's base voice from the top 3 takes (tools/rank_takes.py).
+#   base        Testers pick each character's base voice from the owner's shortlist, or else the top 3 takes.
 #   engines     Testers compare the same line spoken by different engines.
 #   experiment  Testers compare a line in the native voice with the English voice speaking it.
 #
@@ -21,7 +21,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from project_config import CHARACTER_LABELS, CHARACTERS
+from project_config import CHARACTER_LABELS, CHARACTERS, OWNER_SHORTLIST
 from rank_takes import rank
 from text_rules import prepare_text
 
@@ -71,12 +71,13 @@ def base_items(language: str) -> list[dict]:
         rows = list(csv.DictReader(f))
     items = []
     for character in CHARACTERS:
-        best = rank(rows, character)[:TOP_TAKES]
+        shortlist = OWNER_SHORTLIST.get(language, {}).get(character)
+        best = shortlist or [r["clip"] for r in rank(rows, character)[:TOP_TAKES]]
         if best:
             items.append({
                 "item": character,
                 "label": CHARACTER_LABELS[character],
-                "variants": [(r["clip"], takes_dir / r["clip"]) for r in best],
+                "variants": [(clip, takes_dir / clip) for clip in best],
             })
     return items
 

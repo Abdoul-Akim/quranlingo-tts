@@ -12,7 +12,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from project_config import CHARACTERS, TARGET_PITCH_HZ
+from project_config import CHARACTERS, OWNER_SHORTLIST, TARGET_PITCH_HZ
 
 MAX_CER = 0.10
 
@@ -45,6 +45,10 @@ def pick_provisional(takes_dir: Path, voices_dir: Path) -> dict:
     picks, record = {}, {}
     for character in CHARACTERS:
         ranked = rank(rows, character)
+        shortlist = OWNER_SHORTLIST.get(takes_dir.name, {}).get(character)
+        if shortlist:
+            by_clip = {r["clip"]: r for r in rows}
+            ranked = [by_clip[c] for c in shortlist]
         if not ranked:
             continue
         best = ranked[0]
@@ -52,7 +56,8 @@ def pick_provisional(takes_dir: Path, voices_dir: Path) -> dict:
         (voices_dir / f"{character}.txt").write_text(passage, encoding="utf-8")
         picks[character] = best["clip"]
         record[character] = {"take": best["clip"], "pitch_hz": best["pitch_hz"], "cer": best["cer"],
-                             "runners_up": [r["clip"] for r in ranked[1:3]], "chosen_by": "automatic, provisional"}
+                             "runners_up": [r["clip"] for r in (ranked[1:] if shortlist else ranked[1:3])],
+                             "chosen_by": "owner shortlist" if shortlist else "automatic, provisional"}
     (voices_dir / "provisional_picks.json").write_text(json.dumps(record, indent=2), encoding="utf-8")
     return picks
 

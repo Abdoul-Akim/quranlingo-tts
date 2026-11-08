@@ -70,6 +70,15 @@ FROM_FEMALE_DESCRIPTIONS = {
     "zahra": "A young woman with a light, girlish, bright voice, cheerful and energetic",
 }
 
+# Takes the owner shortlisted by ear, per language and character. The first one becomes the
+# reference voice in voices/<lang>/, and testers choose among all of them. Characters missing
+# here keep the automatic pick (tools/rank_takes.py).
+OWNER_SHORTLIST = {
+    "en": {
+        "ali": ["ali/v4_seed2.wav", "ali/v4_seed3.wav", "ali/v4_seed6.wav", "ali/v6_seed2.wav", "ali/v6_seed5.wav"],
+    },
+}
+
 # Typical speaking pitch (median, in Hz) we aim for. Used to rank takes automatically.
 TARGET_PITCH_HZ = {
     "ali": (165, 235),
