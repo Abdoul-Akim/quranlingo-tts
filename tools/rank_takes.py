@@ -15,7 +15,9 @@ import shutil
 import sys
 from pathlib import Path
 
-from project_config import CHARACTERS, OWNER_SHORTLIST, SAME_VOICE_EVERYWHERE, TARGET_PITCH_HZ
+from owner_choices import OWNER_SHORTLIST, SAME_VOICE_EVERYWHERE
+from project_config import CHARACTERS
+from voice_design import TARGET_PITCH_HZ
 
 MAX_CER = 0.10
 MAX_PITCH_DISTANCE = 0.2  # share of the range's middle pitch

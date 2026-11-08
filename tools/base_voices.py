@@ -2,7 +2,9 @@
 # Kept apart from the engine scripts so it can be tested without loading a model.
 from typing import NamedTuple
 
-from project_config import CHARACTERS, DESCRIPTIONS, LANGUAGE_NAMES, SAME_VOICE_EVERYWHERE, SEEDS
+from owner_choices import SAME_VOICE_EVERYWHERE
+from project_config import CHARACTERS, LANGUAGE_NAMES
+from voice_design import DESCRIPTIONS, SEEDS
 
 
 class Job(NamedTuple):

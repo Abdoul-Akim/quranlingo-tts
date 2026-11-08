@@ -47,7 +47,7 @@ def test_characters_come_in_the_fixed_order():
 
 def test_fatima_target_pitch_excludes_the_childish_takes():
     # The owner heard the 244 Hz pick as too young (2026-11-06).
-    from project_config import TARGET_PITCH_HZ
+    from voice_design import TARGET_PITCH_HZ
     low, high = TARGET_PITCH_HZ["fatima"]
     assert not low <= 244 <= high
 
@@ -56,7 +56,7 @@ def test_target_pitch_follows_the_owners_english_choices():
     # Measured on the owner's picks (2026-11-08): Ali 204 and 215 Hz, Omar 141 and 158 Hz,
     # Zahra 275 and 280 Hz (her 341 Hz English pick stays chosen by ear, but the other
     # languages showed higher takes are turned down). Ali at 233 Hz sounded like a girl.
-    from project_config import TARGET_PITCH_HZ
+    from voice_design import TARGET_PITCH_HZ
     inside = lambda c, hz: TARGET_PITCH_HZ[c][0] <= hz <= TARGET_PITCH_HZ[c][1]
     assert inside("ali", 204) and inside("ali", 215) and not inside("ali", 233)
     assert inside("omar", 141) and inside("omar", 158)
@@ -67,7 +67,7 @@ def test_target_pitch_follows_the_owners_french_arabic_and_german_choices():
     # Measured 2026-11-08. Zahra: every take above 290 Hz was turned down (11 of 11), picks 249 to 289.
     # Fatima: picks mostly 210 to 239, takes at 135 to 194 Hz turned down. Omar: picks 103 to 143,
     # takes at 94 and 99 Hz turned down.
-    from project_config import TARGET_PITCH_HZ
+    from voice_design import TARGET_PITCH_HZ
     inside = lambda c, hz: TARGET_PITCH_HZ[c][0] <= hz <= TARGET_PITCH_HZ[c][1]
     assert all(inside("zahra", hz) for hz in (249, 259, 275, 276, 280, 289))
     assert not any(inside("zahra", hz) for hz in (305, 308, 322, 346))

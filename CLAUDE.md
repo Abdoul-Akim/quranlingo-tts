@@ -3,7 +3,7 @@
 Text-to-speech for QuranLingo, an app for learning about the Quran. It voices questions, instructions, stories and educational explanations in a natural, expressive voice. Audio is generated offline in batches and uploaded, so speed does not matter. Emotion and naturalness matter most.
 
 - Languages in use (7): Urdu, English, French, Arabic, German, Turkish, Hindi. Spanish is not used in the app and is dropped for now.
-- Characters (from the app's character sheet, 2026-11-02; replaces the earlier young/middle aged voices, which were wrong). Code names and descriptions live in `tools/project_config.py`.
+- Characters (from the app's character sheet, 2026-11-02; replaces the earlier young/middle aged voices, which were wrong). Code names live in `tools/project_config.py`, voice descriptions in `tools/voice_design.py`.
   - `ali`: Ali, 14 year old boy. Serious and studious, warm-hearted and friendly; calm confidence, quiet dedication.
   - `fatima`: Fatima, 29 year old woman. Warm, nurturing, intelligent; a motherly guide who comforts mistakes and celebrates success.
   - `omar`: Omar, 50 year old man. Calm, wise, grounded; soft-spoken, the father figure and beloved elder guide.
@@ -43,7 +43,9 @@ Text-to-speech for QuranLingo, an app for learning about the Quran. It voices qu
 
 | Path | What |
 |---|---|
-| `tools/project_config.py` | Languages, characters, descriptions, passages, target pitch, engine language support |
+| `tools/project_config.py` | Languages, characters, passages, engine language support |
+| `tools/voice_design.py` | Voice descriptions, seeds per language, target pitch per character |
+| `tools/owner_choices.py` | The owner's picks by ear (shortlists) and Ali's one voice everywhere |
 | `tools/text_rules.py` | Text before speech: honorific per language, Turkish endings, brackets spoken as asides |
 | `tools/base_voices.py`, `engines/voxcpm2/design_base_voices.py` | Which base voice takes to design, and the VoxCPM2 run |
 | `tools/parler_voices.py`, `engines/parler/design_base_voices.py` | Indic Parler-TTS for Urdu and Hindi (needs the model's terms accepted on Hugging Face) |

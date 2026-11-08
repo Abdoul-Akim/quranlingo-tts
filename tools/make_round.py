@@ -19,7 +19,8 @@ import shutil
 import sys
 from pathlib import Path
 
-from project_config import CHARACTER_LABELS, CHARACTERS, OWNER_SHORTLIST, SAME_VOICE_EVERYWHERE
+from owner_choices import OWNER_SHORTLIST, SAME_VOICE_EVERYWHERE
+from project_config import CHARACTER_LABELS, CHARACTERS
 from rank_takes import rank
 from text_rules import prepare_text
 
