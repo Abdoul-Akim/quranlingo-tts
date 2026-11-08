@@ -1,7 +1,8 @@
 # Count the listening test votes, using the local answer keys to reveal which clip was which.
 #
 # Run from the TTS folder:
-#   uv run --project listening_site python tools/results.py           votes from Hugging Face
+#   uv run --project listening_site python tools/results.py           votes from Hugging Face (Render site)
+#   uv run --project listening_site python tools/results.py --aws     votes from the AWS site
 #   uv run --project listening_site python tools/results.py --local   votes from this computer (local tests)
 import json
 import sys
@@ -14,13 +15,19 @@ VOTES_REPO = "abdoulakim/quranlingo-tts-votes"
 
 if "--local" in sys.argv:
     votes_dir = TTS_DIR / "listening_site" / "votes"
+elif "--aws" in sys.argv:
+    from aws_tools import VOTES_FILE, download_votes, stack_outputs
+
+    download_votes(stack_outputs())
+    votes_dir = VOTES_FILE.parent
 else:
     from huggingface_hub import snapshot_download
 
     # Downloads the private votes dataset (needs to be logged in with `hf auth login`).
     votes_dir = Path(snapshot_download(repo_id=VOTES_REPO, repo_type="dataset")) / "data"
 
-votes = [json.loads(line) for path in sorted(votes_dir.glob("*.jsonl")) for line in path.read_text(encoding="utf-8").splitlines()]
+pattern = "aws_votes.jsonl" if "--aws" in sys.argv else "*.jsonl"
+votes = [json.loads(line) for path in sorted(votes_dir.glob(pattern)) for line in path.read_text(encoding="utf-8").splitlines()]
 # Our own checks never count: the nickname "test", plus test runs made without it (by tester id).
 EXCLUDED_TESTERS = {
     "83a322dc06914bc38b46c1edcc754a33",  # 2026-10-25, first online test on Render
@@ -39,7 +46,7 @@ for v in votes:
     winner = key[v["chosen_clip"]]["variant"] if v["chosen_clip"] else "same"
     counts[v["round"]][v["item"]][winner] += 1
     if v["comment"]:
-        shown = ", ".join(f"{letter}={key[clip]['variant']}" for letter, clip in zip("ABC", v["clips"]))
+        shown = ", ".join(f"{letter}={key[clip]['variant']}" for letter, clip in zip("ABCDE", v["clips"]))
         comments.append(f"{v['round']} {v['item']} ({shown}) {v['nickname'] or 'anonymous'}: {v['comment']}")
 
 for round_name, items in counts.items():
