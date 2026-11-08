@@ -91,9 +91,10 @@ OWNER_SHORTLIST = {
         "omar": ["omar/v4_seed5.wav", "omar/v3_seed2.wav"],
         "zahra": ["zahra/v4_seed7.wav", "zahra/v6_seed4.wav", "zahra/v2_seed5.wav"],
     },
-    # Owner's picks 2026-11-08. No French Ali yet; fr omar/v3_seed2 rejected (sounds like a woman).
+    # Owner's picks 2026-11-08. The take designed for Omar as omar/v3_seed2 sounds like a woman,
+    # so it is Fatima's French voice.
     "fr": {
-        "fatima": ["fatima/v3_seed2.wav"],
+        "fatima": ["omar/v3_seed2.wav", "fatima/v3_seed2.wav"],
         "omar": ["omar/v4_seed1.wav", "omar/v4_seed2.wav", "omar/v4_seed3.wav"],
         "zahra": ["zahra/v4_seed2.wav", "zahra/v6_seed2.wav"],
     },
