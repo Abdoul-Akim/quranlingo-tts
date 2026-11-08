@@ -85,3 +85,34 @@ def test_pick_provisional_takes_the_owners_first_choice(tmp_path, monkeypatch):
     assert picks["fatima"] == "fatima/x.wav"  # the owner's ears beat the pitch target
     record = json.loads((tmp_path / "voices" / "en" / "provisional_picks.json").read_text())["fatima"]
     assert record["chosen_by"] == "owner shortlist" and record["runners_up"] == ["fatima/y.wav"]
+
+
+def test_a_take_far_outside_the_pitch_range_is_dropped():
+    # Omar (120 to 165 Hz) at 233 Hz sounds like a woman; Ali (185 to 225) at 131 Hz like a grown man.
+    assert rank([row("omar/a.wav", 233, 0.0)], "omar") == []
+    assert rank([row("ali/a.wav", 131, 0.0)], "ali") == []
+    assert len(rank([row("omar/a.wav", 175, 0.0)], "omar")) == 1  # a little outside is kept
+
+
+def test_a_character_with_one_voice_everywhere_gets_the_english_voice(tmp_path, monkeypatch):
+    import rank_takes
+    monkeypatch.setattr(rank_takes, "SAME_VOICE_EVERYWHERE", {"ali": "en"})
+    english = tmp_path / "voices" / "en"
+    english.mkdir(parents=True)
+    sf.write(english / "ali.wav", np.ones(1600) * 0.1, 16000)
+    (english / "ali.txt").write_text("Hello, and welcome.\n", encoding="utf-8")
+    takes = tmp_path / "base" / "fr"
+    (takes / "ali").mkdir(parents=True)
+    sf.write(takes / "ali" / "x.wav", np.zeros(1600), 16000)
+    write_checks(takes, [row("ali/x.wav", 200, 0.0)])
+    (takes / "passage.txt").write_text("Bonjour.\n", encoding="utf-8")
+    french = tmp_path / "voices" / "fr"
+
+    picks = pick_provisional(takes, french)
+
+    assert picks["ali"] == "voices/en/ali.wav"
+    assert np.allclose(sf.read(french / "ali.wav")[0], 0.1)  # the English voice, not the French take
+    assert (french / "ali.txt").read_text(encoding="utf-8") == "Hello, and welcome.\n"  # its words, for cloning
+    assert (french / "ali.wav").stat().st_mtime >= (english / "ali.wav").stat().st_mtime  # old lines get redone
+    record = json.loads((french / "provisional_picks.json").read_text())["ali"]
+    assert record["chosen_by"] == "same voice in every language (owner, 2026-11-08)"

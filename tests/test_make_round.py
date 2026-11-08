@@ -81,3 +81,11 @@ def test_the_owners_shortlist_replaces_the_automatic_top_three(project, monkeypa
     items = {i["item"]: i for i in base_items("en")}
     assert [v for v, _ in items["ali"]["variants"]] == ["ali/v1_seed3.wav", "ali/v1_seed1.wav"]
     assert len(items["zahra"]["variants"]) == 2
+
+
+def test_a_character_with_one_voice_everywhere_has_no_base_question_in_other_languages(project, monkeypatch):
+    monkeypatch.setattr(make_round, "SAME_VOICE_EVERYWHERE", {"ali": "en"})
+    fr = project / "outputs" / "base_voices" / "fr"
+    fr.mkdir(parents=True)
+    (project / "outputs" / "base_voices" / "en" / "checks.csv").rename(fr / "checks.csv")
+    assert [i["item"] for i in base_items("fr")] == ["zahra"]
