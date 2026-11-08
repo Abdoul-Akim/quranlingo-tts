@@ -104,6 +104,11 @@ OWNER_SHORTLIST = {
         "omar": ["omar/v3_seed1.wav", "omar/v3_seed2.wav", "omar/v4_seed1.wav"],
         "zahra": ["zahra/v4_seed2.wav", "zahra/v6_seed2.wav"],
     },
+    "de": {
+        "fatima": ["fatima/v3_seed2.wav", "fatima/v4_seed2.wav", "fatima/v4_seed3.wav"],
+        "omar": ["omar/v3_seed2.wav", "omar/v3_seed3.wav", "omar/v4_seed2.wav"],
+        "zahra": ["zahra/v4_seed2.wav", "zahra/v4_seed1.wav"],
+    },
 }
 
 # Characters who keep one voice in every language: the English voice is cloned into the others
