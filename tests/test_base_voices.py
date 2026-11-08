@@ -9,13 +9,13 @@ from project_config import CHARACTERS, LANGUAGES
 def test_english_has_more_takes_for_the_children():
     counts = Counter(job.character for job in jobs_for("en"))
     # Children: 3 wordings + the "from a female voice" method, 5 seeds each. Adults: 2 x 4.
-    # Plus the 2026-11-08 redesign (English only): Fatima 3 wordings and Omar 2, 8 seeds each.
-    assert counts == {"ali": 20, "zahra": 20, "fatima": 8 + 24, "omar": 8 + 16}
+    # Plus the 2026-11-08 redesign (English only): Ali and Fatima 3 wordings, Omar 2, 8 seeds each.
+    assert counts == {"ali": 20 + 24, "zahra": 20, "fatima": 8 + 24, "omar": 8 + 16}
 
 
 def test_the_redesign_adds_new_wordings_without_touching_the_old_takes():
     variants = {(job.character, job.variant, job.seed) for job in jobs_for("en")}
-    assert ("fatima", "v5", 8) in variants and ("omar", "v4", 8) in variants
+    assert ("ali", "v6", 8) in variants and ("fatima", "v5", 8) in variants and ("omar", "v4", 8) in variants
     assert ("fatima", "v1", 4) in variants and ("fatima", "v1", 5) not in variants
 
 
