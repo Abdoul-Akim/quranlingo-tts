@@ -116,3 +116,38 @@ def test_a_character_with_one_voice_everywhere_gets_the_english_voice(tmp_path, 
     assert (french / "ali.wav").stat().st_mtime >= (english / "ali.wav").stat().st_mtime  # old lines get redone
     record = json.loads((french / "provisional_picks.json").read_text())["ali"]
     assert record["chosen_by"] == "same voice in every language (owner, 2026-11-08)"
+
+
+def test_a_changed_voice_is_newer_than_the_lines_made_with_the_old_one(tmp_path):
+    import os
+    takes = tmp_path / "base" / "fr"
+    (takes / "fatima").mkdir(parents=True)
+    sf.write(takes / "fatima" / "x.wav", np.zeros(1600), 16000)
+    os.utime(takes / "fatima" / "x.wav", (1_000_000, 1_000_000))  # an old take
+    write_checks(takes, [row("fatima/x.wav", 200, 0.0)])
+    (takes / "passage.txt").write_text("Bonjour.\n", encoding="utf-8")
+    voices = tmp_path / "voices" / "fr"
+    voices.mkdir(parents=True)
+    sf.write(voices / "fatima.wav", np.ones(1600) * 0.1, 16000)  # the previous, different voice
+    line = tmp_path / "line.wav"
+    line.write_bytes(b"made with the previous voice")
+
+    pick_provisional(takes, voices)
+
+    assert (voices / "fatima.wav").stat().st_mtime > line.stat().st_mtime - 1
+
+
+def test_an_unchanged_voice_keeps_its_time_so_lines_are_not_redone(tmp_path):
+    import os
+    takes = tmp_path / "base" / "fr"
+    (takes / "fatima").mkdir(parents=True)
+    sf.write(takes / "fatima" / "x.wav", np.zeros(1600), 16000)
+    write_checks(takes, [row("fatima/x.wav", 200, 0.0)])
+    (takes / "passage.txt").write_text("Bonjour.\n", encoding="utf-8")
+    voices = tmp_path / "voices" / "fr"
+    pick_provisional(takes, voices)
+    os.utime(voices / "fatima.wav", (1_000_000, 1_000_000))
+
+    pick_provisional(takes, voices)
+
+    assert (voices / "fatima.wav").stat().st_mtime == 1_000_000
