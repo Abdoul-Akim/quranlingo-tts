@@ -68,3 +68,20 @@ def test_pick_provisional_skips_a_character_with_no_usable_take(tmp_path):
     write_checks(takes, [row("omar/x.wav", 120, 0.9)])
     (takes / "passage.txt").write_text("Hi.\n", encoding="utf-8")
     assert "omar" not in pick_provisional(takes, tmp_path / "voices" / "en")
+
+
+def test_pick_provisional_takes_the_owners_first_choice(tmp_path, monkeypatch):
+    import rank_takes
+    takes = tmp_path / "base" / "en"
+    (takes / "fatima").mkdir(parents=True)
+    for name in ("x.wav", "y.wav"):
+        sf.write(takes / "fatima" / name, np.zeros(1600), 16000)
+    write_checks(takes, [row("fatima/x.wav", 300, 0.0), row("fatima/y.wav", 210, 0.02)])
+    (takes / "passage.txt").write_text("Hello.\n", encoding="utf-8")
+    monkeypatch.setattr(rank_takes, "OWNER_SHORTLIST", {"en": {"fatima": ["fatima/x.wav", "fatima/y.wav"]}})
+
+    picks = pick_provisional(takes, tmp_path / "voices" / "en")
+
+    assert picks["fatima"] == "fatima/x.wav"  # the owner's ears beat the pitch target
+    record = json.loads((tmp_path / "voices" / "en" / "provisional_picks.json").read_text())["fatima"]
+    assert record["chosen_by"] == "owner shortlist" and record["runners_up"] == ["fatima/y.wav"]

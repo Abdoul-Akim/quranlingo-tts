@@ -73,3 +73,11 @@ def test_write_round_never_overwrites(project):
     write_round("r", "base", "q", base_items("en"))
     with pytest.raises(SystemExit):
         write_round("r", "base", "q", base_items("en"))
+
+
+def test_the_owners_shortlist_replaces_the_automatic_top_three(project, monkeypatch):
+    # The owner listened and shortlisted Ali's takes; Zahra has no shortlist, so stays automatic.
+    monkeypatch.setattr(make_round, "OWNER_SHORTLIST", {"en": {"ali": ["ali/v1_seed3.wav", "ali/v1_seed1.wav"]}})
+    items = {i["item"]: i for i in base_items("en")}
+    assert [v for v, _ in items["ali"]["variants"]] == ["ali/v1_seed3.wav", "ali/v1_seed1.wav"]
+    assert len(items["zahra"]["variants"]) == 2
