@@ -1,4 +1,4 @@
-// Run from the TTS folder:  node --test tests/web/
+// Run from the TTS folder:  node --test tests/web/*.test.mjs
 import assert from "node:assert/strict";
 import { test } from "node:test";
 
