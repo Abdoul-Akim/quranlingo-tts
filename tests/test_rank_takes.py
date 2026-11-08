@@ -151,3 +151,10 @@ def test_an_unchanged_voice_keeps_its_time_so_lines_are_not_redone(tmp_path):
     pick_provisional(takes, voices)
 
     assert (voices / "fatima.wav").stat().st_mtime == 1_000_000
+
+
+def test_the_owner_only_hears_the_best_three_takes_inside_the_target_pitch():
+    from rank_takes import for_owner
+    rows = [row("zahra/a.wav", 260, 0.0), row("zahra/b.wav", 270, 0.01), row("zahra/c.wav", 280, 0.02),
+            row("zahra/d.wav", 285, 0.03), row("zahra/high.wav", 320, 0.0), row("zahra/wrong.wav", 260, 0.5)]
+    assert for_owner(rows, "zahra") == ["zahra/a.wav", "zahra/b.wav", "zahra/c.wav"]
