@@ -81,9 +81,10 @@ FROM_FEMALE_DESCRIPTIONS = {
 # here keep the automatic pick (tools/rank_takes.py).
 OWNER_SHORTLIST = {
     "en": {
-        "ali": ["ali/v4_seed2.wav", "ali/v4_seed3.wav", "ali/v4_seed6.wav", "ali/v6_seed2.wav", "ali/v6_seed5.wav"],
-        "fatima": ["fatima/v3_seed2.wav", "fatima/v3_seed8.wav", "fatima/v3_seed3.wav", "fatima/v4_seed6.wav"],
-        "omar": ["omar/v3_seed1.wav", "omar/v3_seed2.wav", "omar/v3_seed6.wav", "omar/v4_seed1.wav", "omar/v4_seed5.wav"],
+        "ali": ["ali/v6_seed2.wav", "ali/v4_seed6.wav"],
+        "fatima": ["fatima/v3_seed3.wav", "fatima/v3_seed2.wav", "fatima/v4_seed6.wav"],
+        "omar": ["omar/v4_seed5.wav", "omar/v3_seed2.wav"],
+        "zahra": ["zahra/v2_seed2.wav", "zahra/v2_seed5.wav"],
     },
 }
 
