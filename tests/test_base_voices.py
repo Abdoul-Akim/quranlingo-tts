@@ -67,3 +67,17 @@ def test_target_pitch_follows_the_owners_english_choices():
     assert inside("ali", 204) and inside("ali", 215) and not inside("ali", 233)
     assert inside("omar", 141) and inside("omar", 158)
     assert all(inside("zahra", hz) for hz in (275, 280, 341))
+
+
+def test_target_pitch_follows_the_owners_french_arabic_and_german_choices():
+    # Measured 2026-11-08. Zahra: every take above 290 Hz was turned down (11 of 11), picks 249 to 289.
+    # Fatima: picks mostly 210 to 239, takes at 135 to 194 Hz turned down. Omar: picks 103 to 143,
+    # takes at 94 and 99 Hz turned down.
+    from project_config import TARGET_PITCH_HZ
+    inside = lambda c, hz: TARGET_PITCH_HZ[c][0] <= hz <= TARGET_PITCH_HZ[c][1]
+    assert all(inside("zahra", hz) for hz in (249, 259, 275, 276, 280, 289))
+    assert not any(inside("zahra", hz) for hz in (305, 308, 322, 346))
+    assert all(inside("fatima", hz) for hz in (210, 217, 223, 236, 239))
+    assert not any(inside("fatima", hz) for hz in (165, 192, 194))
+    assert all(inside("omar", hz) for hz in (103, 112, 121, 136, 143))
+    assert not any(inside("omar", hz) for hz in (94, 99))
