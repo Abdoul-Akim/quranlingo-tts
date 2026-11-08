@@ -3,7 +3,8 @@
 from typing import NamedTuple
 
 from project_config import (
-    CHARACTERS, DESCRIPTIONS, FROM_FEMALE_DESCRIPTIONS, LANGUAGE_NAMES, REDESIGN_DESCRIPTIONS, REDESIGN_SEEDS,
+    CHARACTERS, CHOSEN_WORDINGS, DESCRIPTIONS, FROM_FEMALE_DESCRIPTIONS, LANGUAGE_NAMES, OTHER_LANGUAGE_SEEDS,
+    REDESIGN_DESCRIPTIONS, REDESIGN_SEEDS,
 )
 
 # English is where we choose the method, so it gets more takes than the other languages.
@@ -20,7 +21,8 @@ class Job(NamedTuple):
 
 
 def jobs_for(language: str) -> list[Job]:
-    accent = "" if language == "en" else f", speaking {LANGUAGE_NAMES[language]} with a native accent"
+    if language != "en":
+        return _chosen_wordings_jobs(language)
     jobs = []
     for character in CHARACTERS:
         child = character in FROM_FEMALE_DESCRIPTIONS
@@ -30,11 +32,22 @@ def jobs_for(language: str) -> list[Job]:
             variants["from_female"] = FROM_FEMALE_DESCRIPTIONS[character]
         for variant, description in variants.items():
             for seed in seeds:
-                jobs.append(Job(character, variant, description + accent, seed))
+                jobs.append(Job(character, variant, description, seed))
         for variant, description in REDESIGN_DESCRIPTIONS.get(character, {}).items():
             for seed in REDESIGN_SEEDS.get(language, []):
-                jobs.append(Job(character, variant, description + accent, seed))
+                jobs.append(Job(character, variant, description, seed))
     return jobs
+
+
+def _chosen_wordings_jobs(language: str) -> list[Job]:
+    # Since 2026-11-08 the other languages use only the wordings the owner chose in English.
+    accent = f", speaking {LANGUAGE_NAMES[language]} with a native accent"
+    return [
+        Job(character, variant, REDESIGN_DESCRIPTIONS[character][variant] + accent, seed)
+        for character in CHARACTERS
+        for variant in CHOSEN_WORDINGS[character]
+        for seed in OTHER_LANGUAGE_SEEDS
+    ]
 
 
 def take_path(job: Job) -> str:

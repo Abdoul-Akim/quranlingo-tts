@@ -69,6 +69,11 @@ REDESIGN_DESCRIPTIONS = {
 }
 REDESIGN_SEEDS = {"en": [1, 2, 3, 4, 5, 6, 7, 8]}
 
+# The wordings the owner chose in English (2026-11-08). The other languages use only these,
+# three seeds each, with a native accent.
+CHOSEN_WORDINGS = {"ali": ["v4", "v6"], "fatima": ["v3", "v4"], "omar": ["v3", "v4"], "zahra": ["v4", "v6"]}
+OTHER_LANGUAGE_SEEDS = [1, 2, 3]
+
 # Method 3 for the children: design a light adult female voice, then shift it toward the child
 # (see tools/age_shift.py). Research suggests adult female voices are the closest adult start point.
 FROM_FEMALE_DESCRIPTIONS = {
@@ -89,11 +94,12 @@ OWNER_SHORTLIST = {
 }
 
 # Typical speaking pitch (median, in Hz) we aim for. Used to rank takes automatically.
+# Set from the owner's English picks on 2026-11-08 (see tests/test_base_voices.py).
 TARGET_PITCH_HZ = {
-    "ali": (165, 235),
+    "ali": (185, 225),
     "fatima": (175, 215),
-    "omar": (85, 145),
-    "zahra": (235, 330),
+    "omar": (120, 165),
+    "zahra": (250, 345),
 }
 
 # The calm reference passage every voice reads. Same meaning in every language.
