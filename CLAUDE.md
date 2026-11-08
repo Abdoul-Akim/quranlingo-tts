@@ -53,9 +53,8 @@ Text-to-speech for QuranLingo, an app for learning about the Quran. It voices qu
 | `engines/chatterbox/speaker_similarity.py`, `tools/similarity.py` | Voice consistency check |
 | `tools/variations.py` | Every character in every emotion (Phase C) |
 | `tools/make_round.py`, `tools/results.py` | Listening rounds and vote counting |
-| `tools/run_overnight.sh`, `tools/run_after.sh` | The full unattended run |
+| `tools/run.sh` | The pipeline: chosen steps for chosen languages, resumable (`DRY=1` prints the commands) |
 | `tools/summarise.py` | `outputs/report.md` |
-| `tools/run_languages.sh` | Redo the other languages with the owner's chosen English wordings |
 | `aws_site/`, `tools/aws_tools.py`, `tools/deploy_aws.sh`, `tools/serve_aws_site.py` | The listening site on AWS (see `aws_site/README.md`) |
 
 ## Listening and rating

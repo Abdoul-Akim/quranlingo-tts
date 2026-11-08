@@ -36,9 +36,10 @@ Requires [uv](https://docs.astral.sh/uv/) and an Apple Silicon Mac (or a CUDA GP
 # Tests (run from this folder)
 uv run --project analysis python -m pytest
 
-# Everything, one heavy job at a time, resumable
-caffeinate -i zsh tools/run_overnight.sh
-caffeinate -i zsh tools/run_after.sh
+# The pipeline, one heavy job at a time, resumable (steps and languages; see the top of the script)
+caffeinate -i zsh tools/run.sh all all
+caffeinate -i zsh tools/run.sh pick,lines,similarity,rounds fr de
+DRY=1 zsh tools/run.sh all fr    # only print the commands
 ```
 
 ## What is not in this repository
