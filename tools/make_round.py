@@ -116,7 +116,8 @@ def engines_items(language: str, engines: list[str]) -> list[dict]:
 
 def experiment_items(language: str, engine: str, voices_from: str) -> list[dict]:
     step_dir = TTS_DIR / "outputs" / f"step1_{language}"
-    lines = _read_lines(language)
+    # Characters who already speak with the English voice would be compared with themselves.
+    lines = [line for line in _read_lines(language) if line["character"] not in SAME_VOICE_EVERYWHERE]
     return [
         _line_item(line, language, n, len(lines), [
             ("native", step_dir / engine / f"{line['id']}.wav"),
