@@ -89,3 +89,8 @@ def test_a_character_with_one_voice_everywhere_has_no_base_question_in_other_lan
     fr.mkdir(parents=True)
     (project / "outputs" / "base_voices" / "en" / "checks.csv").rename(fr / "checks.csv")
     assert [i["item"] for i in base_items("fr")] == ["zahra"]
+
+
+def test_the_experiment_leaves_out_a_character_who_already_has_the_english_voice(project, monkeypatch):
+    monkeypatch.setattr(make_round, "SAME_VOICE_EVERYWHERE", {"omar": "en"})
+    assert experiment_items("fr", "voxcpm2", "en") == []  # e01 is Omar's only line
