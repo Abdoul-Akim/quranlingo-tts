@@ -37,6 +37,11 @@ def rank(rows: list[dict], character: str) -> list[dict]:
     return sorted(usable, key=lambda r: (_pitch_distance(float(r["pitch_hz"]), character), float(r["cer"])))
 
 
+def for_owner(rows: list[dict], character: str, count: int = 3) -> list[str]:
+    # The takes worth the owner's time: inside the target pitch, words right, best first.
+    return [r["clip"] for r in rank(rows, character) if _pitch_distance(float(r["pitch_hz"]), character) == 0][:count]
+
+
 def _place_voice(source: Path, target: Path) -> None:
     # Copies only when the voice changed, and then with a new time, so lines made with the
     # previous voice are redone (line_jobs.is_done) and lines made with this one are kept.
@@ -84,5 +89,12 @@ def pick_provisional(takes_dir: Path, voices_dir: Path) -> dict:
 
 
 if __name__ == "__main__":
+    if sys.argv[1] == "--for-owner":  # rank_takes.py --for-owner outputs/base_voices/tr: paths to listen to
+        takes_dir = Path(sys.argv[2])
+        rows = read_checks(takes_dir)
+        for character in CHARACTERS:
+            if SAME_VOICE_EVERYWHERE.get(character, takes_dir.name) == takes_dir.name:
+                print("\n".join(str(takes_dir / clip) for clip in for_owner(rows, character)))
+        sys.exit()
     for character, take in pick_provisional(Path(sys.argv[1]), Path(sys.argv[2])).items():
         print(f"{character}: {take}")
