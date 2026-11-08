@@ -60,6 +60,12 @@ REDESIGN_DESCRIPTIONS = {
         "v3": "A man around fifty, a loving father speaking to his children, warm and smiling voice, gentle and soft, calm and kind",
         "v4": "A fatherly man of about fifty, warm, friendly and caring voice, gently encouraging, like a grandfather telling a story by the fire, not deep or stern",
     },
+    # Added 2026-11-08: the owner wants Zahra to sound clearly ten, not a little child.
+    "zahra": {
+        "v4": "A ten-year-old girl, a schoolgirl, clear and bright child voice, natural and not babyish, curious and lively",
+        "v5": "A girl of about ten, older than a little child, lively and talkative, cheerful, expressive and natural",
+        "v6": "A ten-year-old girl telling her friend about her day, animated and excited, natural child voice, medium high pitch",
+    },
 }
 REDESIGN_SEEDS = {"en": [1, 2, 3, 4, 5, 6, 7, 8]}
 
