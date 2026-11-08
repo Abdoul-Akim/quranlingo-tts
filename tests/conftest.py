@@ -15,3 +15,5 @@ def no_owner_shortlist(monkeypatch):
     import rank_takes
     monkeypatch.setattr(make_round, "OWNER_SHORTLIST", {})
     monkeypatch.setattr(rank_takes, "OWNER_SHORTLIST", {})
+    monkeypatch.setattr(make_round, "SAME_VOICE_EVERYWHERE", {})
+    monkeypatch.setattr(rank_takes, "SAME_VOICE_EVERYWHERE", {})

@@ -37,6 +37,14 @@ def rank(rows: list[dict], character: str) -> list[dict]:
     return sorted(usable, key=lambda r: (_pitch_distance(float(r["pitch_hz"]), character), float(r["cer"])))
 
 
+def _place_voice(source: Path, target: Path) -> None:
+    # Copies only when the voice changed, and then with a new time, so lines made with the
+    # previous voice are redone (line_jobs.is_done) and lines made with this one are kept.
+    if target.exists() and target.read_bytes() == source.read_bytes():
+        return
+    shutil.copy(source, target)
+
+
 def read_checks(takes_dir: Path) -> list[dict]:
     with (takes_dir / "checks.csv").open(encoding="utf-8") as f:
         return list(csv.DictReader(f))
@@ -52,7 +60,7 @@ def pick_provisional(takes_dir: Path, voices_dir: Path) -> dict:
         source = SAME_VOICE_EVERYWHERE.get(character)
         if source and source != takes_dir.name:
             english = voices_dir.parent / source
-            shutil.copy(english / f"{character}.wav", voices_dir / f"{character}.wav")  # new time: lines get redone
+            _place_voice(english / f"{character}.wav", voices_dir / f"{character}.wav")
             shutil.copy(english / f"{character}.txt", voices_dir / f"{character}.txt")
             picks[character] = f"voices/{source}/{character}.wav"
             record[character] = {"take": picks[character], "chosen_by": "same voice in every language (owner, 2026-11-08)"}
@@ -65,7 +73,7 @@ def pick_provisional(takes_dir: Path, voices_dir: Path) -> dict:
         if not ranked:
             continue
         best = ranked[0]
-        shutil.copy2(takes_dir / best["clip"], voices_dir / f"{character}.wav")
+        _place_voice(takes_dir / best["clip"], voices_dir / f"{character}.wav")
         (voices_dir / f"{character}.txt").write_text(passage, encoding="utf-8")
         picks[character] = best["clip"]
         record[character] = {"take": best["clip"], "pitch_hz": best["pitch_hz"], "cer": best["cer"],
