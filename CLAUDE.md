@@ -55,8 +55,12 @@ Text-to-speech for QuranLingo, an app for learning about the Quran. It voices qu
 | `tools/make_round.py`, `tools/results.py` | Listening rounds and vote counting |
 | `tools/run_overnight.sh`, `tools/run_after.sh` | The full unattended run |
 | `tools/summarise.py` | `outputs/report.md` |
+| `tools/run_languages.sh` | Redo the other languages with the owner's chosen English wordings |
+| `aws_site/`, `tools/aws_tools.py`, `tools/deploy_aws.sh`, `tools/serve_aws_site.py` | The listening site on AWS (see `aws_site/README.md`) |
 
 ## Listening and rating
+
+- Moving to AWS (owner decision, 2026-11-08): QuranLingo's AWS account, S3 plus CloudFront for pages and audio, Lambda plus DynamoDB for votes, template in `aws_site/template.yaml`. Built and tested locally; waiting for QuranLingo to create the IAM user (`aws_site/deploy_policy.json`). The Render site below stays online until the AWS site is live. The address is QuranLingo's decision.
 
 - Site: a Gradio app hosted on Render (owner's paid account), deployed from a private GitHub repo that contains only `listening_site/` (its own Git repository). One page per language from `listening_site/rounds/pages.json`; the first English test stays at `/en-v1`. Gradio Spaces on Hugging Face need PRO since 2026, so they are not used. Votes go to the private Hugging Face dataset `abdoulakim/quranlingo-tts-votes`. Clip file names are anonymised and the answer keys stay local (`keys/`), never uploaded.
 - Testers compare clips blind (order shuffled per visitor, engine and seed hidden), answer A, B, C or same, with an optional comment.
