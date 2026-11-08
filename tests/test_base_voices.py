@@ -21,12 +21,13 @@ def test_the_redesign_adds_new_wordings_without_touching_the_old_takes():
 
 @pytest.mark.parametrize("language", [l for l in LANGUAGES if l != "en"])
 def test_other_languages_use_only_the_wordings_the_owner_chose_in_english(language):
-    # 2026-11-08: two chosen wordings per character, three seeds each, no older wordings.
+    # 2026-11-08: two chosen wordings per character, three seeds each (six in tr, hi and ur,
+    # where few takes passed the filter, so testers get more choice). Ali has the English voice.
     jobs = jobs_for(language)
-    assert Counter(job.character for job in jobs) == {"ali": 6, "zahra": 6, "fatima": 6, "omar": 6}
+    per_character = 12 if language in ("tr", "hi", "ur") else 6
+    assert Counter(job.character for job in jobs) == {"zahra": per_character, "fatima": per_character, "omar": per_character}
     assert {(j.character, j.variant) for j in jobs} == {
-        ("ali", "v4"), ("ali", "v6"), ("fatima", "v3"), ("fatima", "v4"),
-        ("omar", "v3"), ("omar", "v4"), ("zahra", "v4"), ("zahra", "v6"),
+        ("fatima", "v3"), ("fatima", "v4"), ("omar", "v3"), ("omar", "v4"), ("zahra", "v4"), ("zahra", "v6"),
     }
 
 
