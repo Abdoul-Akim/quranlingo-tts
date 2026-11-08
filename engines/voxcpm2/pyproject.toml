@@ -1,8 +1,7 @@
 [project]
 name = "voxcpm2"
 version = "0.1.0"
-description = "Add your description here"
-readme = "README.md"
+description = "VoxCPM2 engine for the QuranLingo TTS pipeline: voice design and cloning"
 authors = [
     { name = "Abdoul-Akim", email = "silueakim2007@gmail.com" }
 ]
@@ -11,9 +10,5 @@ dependencies = [
     "voxcpm>=2.0.3",
 ]
 
-[project.scripts]
-voxcpm2 = "voxcpm2:main"
-
-[build-system]
-requires = ["uv_build>=0.12.3,<0.13.0"]
-build-backend = "uv_build"
+[tool.uv]
+package = false  # a folder of scripts, not an installable package
