@@ -1,7 +1,6 @@
 # Turn clips into an anonymous listening round for the website.
 #
 # Kinds of round:
-#   voices      Testers pick a take for each character. Clips are named <character>_seed<N>.wav.
 #   base        Testers pick each character's base voice from the owner's shortlist, or else the top 3 takes.
 #   engines     Testers compare the same line spoken by different engines.
 #   experiment  Testers compare a line in the native voice with the English voice speaking it.
@@ -10,7 +9,6 @@
 # The answer key (random name to original file) is written to keys/, which is never uploaded.
 #
 # Run from the TTS folder:
-#   python3 tools/make_round.py voices voices_en_v2 outputs/voice_design/en_v2_steps50_cfg1.5 young_female:2,3
 #   python3 tools/make_round.py base base_fr fr
 #   python3 tools/make_round.py engines engines_fr fr chatterbox voxcpm2
 #   python3 tools/make_round.py experiment experiment_fr fr voxcpm2 en
@@ -27,12 +25,9 @@ from text_rules import prepare_text
 
 TTS_DIR = Path(__file__).resolve().parents[1]
 
-# Characters always appear in this order on the site (earlier character names first).
-CHARACTER_ORDER = ["young_male", "young_female", "middle_aged_male", "middle_aged_female"] + CHARACTERS
 TOP_TAKES = 3
 
 QUESTIONS = {
-    "voices": "Which voice do you prefer?",
     "base": "Which voice fits this character best?",
     "engines": "Which sounds more natural and fits the emotion better?",
     "experiment": "Which voice sounds more natural in your language?",
@@ -43,26 +38,6 @@ EMOTION_HINTS = {
     "question": "a warm, clear question",
     "option": "a warm, clear answer option",
 }
-
-
-def voices_items(source_dir: Path, filters: list[str]) -> list[dict]:
-    # filters like "young_female:2,3" keep only those seeds; no filters keeps every clip.
-    wanted = {}
-    for f in filters:
-        character, seeds = f.split(":")
-        wanted[character] = {int(s) for s in seeds.split(",")}
-
-    groups = {}
-    for wav in sorted(source_dir.glob("*_seed*.wav")):
-        character, seed = wav.stem.rsplit("_seed", 1)
-        if wanted and int(seed) not in wanted.get(character, set()):
-            continue
-        groups.setdefault(character, []).append((f"seed{seed}", wav))
-
-    return [
-        {"item": character, "label": character.replace("_", " ").capitalize(), "variants": variants}
-        for character, variants in sorted(groups.items(), key=lambda g: CHARACTER_ORDER.index(g[0]))
-    ]
 
 
 def base_items(language: str) -> list[dict]:
@@ -164,9 +139,7 @@ def write_round(round_name: str, kind: str, question: str, items: list[dict]) ->
 
 if __name__ == "__main__":
     kind, round_name, rest = sys.argv[1], sys.argv[2], sys.argv[3:]
-    if kind == "voices":
-        items = voices_items(Path(rest[0]).resolve(), rest[1:])
-    elif kind == "base":
+    if kind == "base":
         items = base_items(rest[0])
     elif kind == "engines":
         items = engines_items(rest[0], rest[1:])

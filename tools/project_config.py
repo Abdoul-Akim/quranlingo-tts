@@ -19,68 +19,36 @@ CHARACTER_LABELS = {
     "zahra": "Zahra (girl, 10)",
 }
 
-# Voice design descriptions, several wordings per character. Voice design results vary,
-# so we try more than one wording and let listeners choose.
+# Voice design descriptions: the two wordings per character the owner chose in English
+# (2026-11-08). Each one goes in brackets in front of the text; the other languages add
+# ", speaking <language> with a native accent". Older wordings (v1, v2, v5, a light female
+# voice shifted younger) are in Git history; the English Zahra pick zahra/v2_seed5 came from v2:
+# "A little girl around ten years old, lively and talkative, cheerful high-pitched child voice, playful".
 DESCRIPTIONS = {
     "ali": {
-        "v1": "A 14-year-old boy, young teenage voice, light and slightly high, not yet deep, calm, serious and studious, warm and friendly",
-        "v2": "A teenage boy around fourteen, clear youthful voice that has not fully broken, gentle, thoughtful and kind",
-        "v3": "A young boy about fourteen years old, bright and clean voice, calm and confident, friendly",
-    },
-    "fatima": {
-        "v1": "A woman in her late twenties, warm, nurturing and intelligent, calm, gentle and reassuring, slightly motherly",
-        "v2": "A young woman around thirty, soft and kind voice, clear and composed, comforting and supportive",
-    },
-    "omar": {
-        "v1": "A man around fifty, calm, wise and grounded, soft-spoken, warm and fatherly, steady and reassuring",
-        "v2": "A middle-aged man of about fifty, deep, gentle and kind voice, slow and thoughtful, a beloved elder",
-    },
-    "zahra": {
-        "v1": "A 10-year-old girl, child's voice, high and bright, bubbly, curious and full of energy",
-        "v2": "A little girl around ten years old, lively and talkative, cheerful high-pitched child voice, playful",
-        "v3": "A young girl about ten years old, sweet, animated and expressive voice, excited and curious",
-    },
-}
-
-# Redesign after the owner's listening (2026-11-06): Fatima sounded like a kid or robotic,
-# Omar not warm or fatherly enough, Ali either a man or a girl. English only until the owner
-# picks, 8 seeds each.
-REDESIGN_DESCRIPTIONS = {
-    "ali": {
         "v4": "A boy of thirteen or fourteen whose voice is just starting to break, boyish and youthful, not a man and not a girl, calm and serious, friendly",
-        "v5": "A schoolboy around fourteen reading aloud in class, young boyish voice, medium pitch, earnest and studious",
         "v6": "A teenage boy with a boyish voice and a slight youthful roughness, calm, warm and thoughtful",
     },
     "fatima": {
         "v3": "A woman of about thirty, a mother, warm and mature voice, medium pitch, natural and relaxed, gently smiling",
         "v4": "A grown woman around thirty, rich and warm mid-range voice, calm, caring and expressive, like a kind teacher",
-        "v5": "A thirty-year-old mother speaking softly to her child, warm, natural and lively, not high-pitched",
     },
     "omar": {
         "v3": "A man around fifty, a loving father speaking to his children, warm and smiling voice, gentle and soft, calm and kind",
         "v4": "A fatherly man of about fifty, warm, friendly and caring voice, gently encouraging, like a grandfather telling a story by the fire, not deep or stern",
     },
-    # Added 2026-11-08: the owner wants Zahra to sound clearly ten, not a little child.
     "zahra": {
         "v4": "A ten-year-old girl, a schoolgirl, clear and bright child voice, natural and not babyish, curious and lively",
-        "v5": "A girl of about ten, older than a little child, lively and talkative, cheerful, expressive and natural",
         "v6": "A ten-year-old girl telling her friend about her day, animated and excited, natural child voice, medium high pitch",
     },
 }
-REDESIGN_SEEDS = {"en": [1, 2, 3, 4, 5, 6, 7, 8]}
 
-# The wordings the owner chose in English (2026-11-08). The other languages use only these,
-# three seeds each, with a native accent.
-CHOSEN_WORDINGS = {"ali": ["v4", "v6"], "fatima": ["v3", "v4"], "omar": ["v3", "v4"], "zahra": ["v4", "v6"]}
-OTHER_LANGUAGE_SEEDS = [1, 2, 3]
-# More takes where few passed the pitch filter (2026-11-08), so testers get more choice.
-EXTRA_SEEDS = {"tr": [4, 5, 6], "hi": [4, 5, 6], "ur": [4, 5, 6]}
-
-# Method 3 for the children: design a light adult female voice, then shift it toward the child
-# (see tools/age_shift.py). Research suggests adult female voices are the closest adult start point.
-FROM_FEMALE_DESCRIPTIONS = {
-    "ali": "A young woman with a light, boyish voice, clear and calm, friendly",
-    "zahra": "A young woman with a light, girlish, bright voice, cheerful and energetic",
+# Seeds per language (each seed is one take of each wording). English had the most takes, since
+# that is where the wordings were chosen; tr, hi and ur got more where few passed the pitch filter.
+SEEDS = {
+    "en": [1, 2, 3, 4, 5, 6, 7, 8],
+    "fr": [1, 2, 3], "ar": [1, 2, 3], "de": [1, 2, 3],
+    "tr": [1, 2, 3, 4, 5, 6], "hi": [1, 2, 3, 4, 5, 6], "ur": [1, 2, 3, 4, 5, 6],
 }
 
 # Takes the owner shortlisted by ear, per language and character. The first one becomes the
@@ -101,7 +69,6 @@ OWNER_SHORTLIST = {
         "zahra": ["zahra/v4_seed2.wav", "zahra/v6_seed2.wav"],
     },
     "ar": {
-        "ali": ["ali/v6_seed1.wav", "ali/v6_seed3.wav"],
         "fatima": ["fatima/v3_seed2.wav", "fatima/v4_seed1.wav", "fatima/v4_seed2.wav", "fatima/v4_seed3.wav"],
         "omar": ["omar/v3_seed1.wav", "omar/v3_seed2.wav", "omar/v4_seed1.wav"],
         "zahra": ["zahra/v4_seed2.wav", "zahra/v6_seed2.wav"],

@@ -13,8 +13,8 @@ All voices are synthetic, designed from text descriptions. No real person's voic
 
 ## How it works
 
-1. **Base voices:** each character's voice is designed from a description (VoxCPM2 voice design, or Indic Parler-TTS for Urdu). The children's voices are also made younger by shifting pitch and formants (`tools/age_shift.py`).
-2. **Automatic checks:** speech recognition checks every take for wrong or missing words, and pitch is measured (`tools/check_clips.py`). Takes are ranked (`tools/rank_takes.py`).
+1. **Base voices:** each character's voice is designed from a description (VoxCPM2 voice design, or Indic Parler-TTS for Urdu). Ali keeps his English voice in every language, cloned into each one. A pitch and formant shift for younger voices (`tools/age_shift.py`) was tried and is not used in the current voices.
+2. **Automatic checks:** speech recognition checks every take for wrong or missing words, and pitch is measured (`tools/check_clips.py`). Takes with a pitch clearly wrong for the character are dropped, and the rest are ranked (`tools/rank_takes.py`).
 3. **People choose:** a blind listening website lets native speakers pick the best takes and engines (`tools/make_round.py`, the site is a separate repository).
 4. **Generation:** each engine clones the chosen base voice and speaks the app's lines with the right emotion (`engines/*/generate.py`, `tools/line_styles.py`). Voice consistency is checked against the base voice (`engines/chatterbox/speaker_similarity.py`).
 

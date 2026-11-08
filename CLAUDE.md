@@ -47,7 +47,7 @@ Text-to-speech for QuranLingo, an app for learning about the Quran. It voices qu
 | `tools/text_rules.py` | Text before speech: honorific per language, Turkish endings, brackets spoken as asides |
 | `tools/base_voices.py`, `engines/voxcpm2/design_base_voices.py` | Which base voice takes to design, and the VoxCPM2 run |
 | `tools/parler_voices.py`, `engines/parler/design_base_voices.py` | Indic Parler-TTS for Urdu and Hindi (needs the model's terms accepted on Hugging Face) |
-| `tools/age_shift.py` | Pitch and formant shift (WORLD vocoder) to make Ali and Zahra sound younger |
+| `tools/age_shift.py` | Pitch and formant shift (WORLD vocoder) to make a voice sound younger; tried, not used in the current voices |
 | `tools/check_clips.py`, `tools/rank_takes.py` | Whisper word check and pitch; ranking and provisional picks into `voices/<lang>/` |
 | `tools/line_styles.py`, `tools/line_jobs.py`, `engines/*/generate.py` | Emotion styles per engine, paths, and the test line runs |
 | `engines/chatterbox/speaker_similarity.py`, `tools/similarity.py` | Voice consistency check |
