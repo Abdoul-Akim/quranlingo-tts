@@ -9,7 +9,14 @@ from project_config import CHARACTERS, LANGUAGES
 def test_english_has_more_takes_for_the_children():
     counts = Counter(job.character for job in jobs_for("en"))
     # Children: 3 wordings + the "from a female voice" method, 5 seeds each. Adults: 2 x 4.
-    assert counts == {"ali": 20, "zahra": 20, "fatima": 8, "omar": 8}
+    # Plus the 2026-11-08 redesign (English only): Fatima 3 wordings and Omar 2, 8 seeds each.
+    assert counts == {"ali": 20, "zahra": 20, "fatima": 8 + 24, "omar": 8 + 16}
+
+
+def test_the_redesign_adds_new_wordings_without_touching_the_old_takes():
+    variants = {(job.character, job.variant, job.seed) for job in jobs_for("en")}
+    assert ("fatima", "v5", 8) in variants and ("omar", "v4", 8) in variants
+    assert ("fatima", "v1", 4) in variants and ("fatima", "v1", 5) not in variants
 
 
 @pytest.mark.parametrize("language", [l for l in LANGUAGES if l != "en"])
@@ -38,3 +45,10 @@ def test_every_job_has_a_unique_file():
 def test_characters_come_in_the_fixed_order():
     seen = list(dict.fromkeys(job.character for job in jobs_for("en")))
     assert seen == CHARACTERS
+
+
+def test_fatima_target_pitch_excludes_the_childish_takes():
+    # The owner heard the 244 Hz pick as too young (2026-11-06).
+    from project_config import TARGET_PITCH_HZ
+    low, high = TARGET_PITCH_HZ["fatima"]
+    assert 170 <= low and high <= 215
