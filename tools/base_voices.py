@@ -3,8 +3,8 @@
 from typing import NamedTuple
 
 from project_config import (
-    CHARACTERS, CHOSEN_WORDINGS, DESCRIPTIONS, FROM_FEMALE_DESCRIPTIONS, LANGUAGE_NAMES, OTHER_LANGUAGE_SEEDS,
-    REDESIGN_DESCRIPTIONS, REDESIGN_SEEDS,
+    CHARACTERS, CHOSEN_WORDINGS, DESCRIPTIONS, FROM_FEMALE_DESCRIPTIONS, EXTRA_SEEDS, LANGUAGE_NAMES,
+    OTHER_LANGUAGE_SEEDS, REDESIGN_DESCRIPTIONS, REDESIGN_SEEDS, SAME_VOICE_EVERYWHERE,
 )
 
 # English is where we choose the method, so it gets more takes than the other languages.
@@ -41,12 +41,13 @@ def jobs_for(language: str) -> list[Job]:
 
 def _chosen_wordings_jobs(language: str) -> list[Job]:
     # Since 2026-11-08 the other languages use only the wordings the owner chose in English.
+    # Characters with the English voice everywhere (Ali) need no takes here.
     accent = f", speaking {LANGUAGE_NAMES[language]} with a native accent"
     return [
         Job(character, variant, REDESIGN_DESCRIPTIONS[character][variant] + accent, seed)
-        for character in CHARACTERS
+        for character in CHARACTERS if character not in SAME_VOICE_EVERYWHERE
         for variant in CHOSEN_WORDINGS[character]
-        for seed in OTHER_LANGUAGE_SEEDS
+        for seed in OTHER_LANGUAGE_SEEDS + EXTRA_SEEDS.get(language, [])
     ]
 
 

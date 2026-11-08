@@ -73,6 +73,8 @@ REDESIGN_SEEDS = {"en": [1, 2, 3, 4, 5, 6, 7, 8]}
 # three seeds each, with a native accent.
 CHOSEN_WORDINGS = {"ali": ["v4", "v6"], "fatima": ["v3", "v4"], "omar": ["v3", "v4"], "zahra": ["v4", "v6"]}
 OTHER_LANGUAGE_SEEDS = [1, 2, 3]
+# More takes where few passed the pitch filter (2026-11-08), so testers get more choice.
+EXTRA_SEEDS = {"tr": [4, 5, 6], "hi": [4, 5, 6], "ur": [4, 5, 6]}
 
 # Method 3 for the children: design a light adult female voice, then shift it toward the child
 # (see tools/age_shift.py). Research suggests adult female voices are the closest adult start point.
