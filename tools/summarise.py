@@ -37,6 +37,13 @@ def _read(path: Path) -> list[dict]:
         return list(csv.DictReader(f))
 
 
+def pick_row(language: str, character: str, pick: dict | None) -> list:
+    # A character with the English voice everywhere has no pitch or word check in this language.
+    if not pick:
+        return [language, character, "not done", "", ""]
+    return [language, character, pick["take"], pick.get("pitch_hz", ""), pick.get("cer", "")]
+
+
 if __name__ == "__main__":
     parts = ["# Overnight report", "",
              "Automatic measurements only. Provisional picks are for continuing work; people make the real choice.", ""]
@@ -47,8 +54,7 @@ if __name__ == "__main__":
         picks_file = TTS_DIR / "voices" / language / "provisional_picks.json"
         picks = json.loads(picks_file.read_text()) if picks_file.exists() else {}
         for character in CHARACTERS:
-            p = picks.get(character)
-            pick_rows.append([language, character, p["take"] if p else "not done", p and p["pitch_hz"], p and p["cer"]])
+            pick_rows.append(pick_row(language, character, picks.get(character)))
     parts += [markdown_table(["Language", "Character", "Take", "Pitch (Hz)", "Word errors (cer)"], pick_rows), ""]
 
     parts += ["## Test lines per engine", "",
