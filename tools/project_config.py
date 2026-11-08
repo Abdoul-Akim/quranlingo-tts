@@ -43,8 +43,14 @@ DESCRIPTIONS = {
 }
 
 # Redesign after the owner's listening (2026-11-06): Fatima sounded like a kid or robotic,
-# Omar not warm or fatherly enough. English only until the owner picks, 8 seeds each.
+# Omar not warm or fatherly enough, Ali either a man or a girl. English only until the owner
+# picks, 8 seeds each.
 REDESIGN_DESCRIPTIONS = {
+    "ali": {
+        "v4": "A boy of thirteen or fourteen whose voice is just starting to break, boyish and youthful, not a man and not a girl, calm and serious, friendly",
+        "v5": "A schoolboy around fourteen reading aloud in class, young boyish voice, medium pitch, earnest and studious",
+        "v6": "A teenage boy with a boyish voice and a slight youthful roughness, calm, warm and thoughtful",
+    },
     "fatima": {
         "v3": "A woman of about thirty, a mother, warm and mature voice, medium pitch, natural and relaxed, gently smiling",
         "v4": "A grown woman around thirty, rich and warm mid-range voice, calm, caring and expressive, like a kind teacher",
