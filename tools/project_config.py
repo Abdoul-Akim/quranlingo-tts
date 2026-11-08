@@ -84,7 +84,7 @@ OWNER_SHORTLIST = {
         "ali": ["ali/v6_seed2.wav", "ali/v4_seed6.wav"],
         "fatima": ["fatima/v3_seed3.wav", "fatima/v3_seed2.wav", "fatima/v4_seed6.wav"],
         "omar": ["omar/v4_seed5.wav", "omar/v3_seed2.wav"],
-        "zahra": ["zahra/v2_seed2.wav", "zahra/v2_seed5.wav"],
+        "zahra": ["zahra/v4_seed7.wav", "zahra/v6_seed4.wav"],
     },
 }
 
