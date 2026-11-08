@@ -91,7 +91,23 @@ OWNER_SHORTLIST = {
         "omar": ["omar/v4_seed5.wav", "omar/v3_seed2.wav"],
         "zahra": ["zahra/v4_seed7.wav", "zahra/v6_seed4.wav", "zahra/v2_seed5.wav"],
     },
+    # Owner's picks 2026-11-08. No French Ali yet; fr omar/v3_seed2 rejected (sounds like a woman).
+    "fr": {
+        "fatima": ["fatima/v3_seed2.wav"],
+        "omar": ["omar/v4_seed1.wav", "omar/v4_seed2.wav", "omar/v4_seed3.wav"],
+        "zahra": ["zahra/v4_seed2.wav", "zahra/v6_seed2.wav"],
+    },
+    "ar": {
+        "ali": ["ali/v6_seed1.wav", "ali/v6_seed3.wav"],
+        "fatima": ["fatima/v3_seed2.wav", "fatima/v4_seed1.wav", "fatima/v4_seed2.wav", "fatima/v4_seed3.wav"],
+        "omar": ["omar/v3_seed1.wav", "omar/v3_seed2.wav", "omar/v4_seed1.wav"],
+        "zahra": ["zahra/v4_seed2.wav", "zahra/v6_seed2.wav"],
+    },
 }
+
+# Characters who keep one voice in every language: the English voice is cloned into the others
+# (owner, 2026-11-08: the English Ali speaking French and Arabic beat every native Ali take).
+SAME_VOICE_EVERYWHERE = {"ali": "en"}
 
 # Typical speaking pitch (median, in Hz) we aim for. Used to rank takes automatically.
 # Set from the owner's English picks on 2026-11-08 (see tests/test_base_voices.py).

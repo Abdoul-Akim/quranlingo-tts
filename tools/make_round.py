@@ -21,7 +21,7 @@ import shutil
 import sys
 from pathlib import Path
 
-from project_config import CHARACTER_LABELS, CHARACTERS, OWNER_SHORTLIST
+from project_config import CHARACTER_LABELS, CHARACTERS, OWNER_SHORTLIST, SAME_VOICE_EVERYWHERE
 from rank_takes import rank
 from text_rules import prepare_text
 
@@ -71,6 +71,8 @@ def base_items(language: str) -> list[dict]:
         rows = list(csv.DictReader(f))
     items = []
     for character in CHARACTERS:
+        if SAME_VOICE_EVERYWHERE.get(character, language) != language:
+            continue  # this character uses the English voice here, so there is nothing to choose
         shortlist = OWNER_SHORTLIST.get(language, {}).get(character)
         best = shortlist or [r["clip"] for r in rank(rows, character)[:TOP_TAKES]]
         if best:

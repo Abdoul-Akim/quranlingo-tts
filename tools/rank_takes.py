@@ -2,6 +2,9 @@
 #   1. Takes whose words came out wrong (character error rate above MAX_CER) are excluded.
 #   2. Takes whose pitch is inside the character's target range come first.
 #   3. Then the clearest words win; outside the range, the closest pitch wins.
+#   4. Takes far outside the range (more than MAX_PITCH_DISTANCE) are dropped: they are usually
+#      the wrong age or gender (an Omar who sounds like a woman, an Ali who sounds like a grown man).
+# Characters in SAME_VOICE_EVERYWHERE get the English voice in every language instead.
 # This only picks PROVISIONAL voices so work can continue; people make the real choice.
 #
 # Run from the TTS folder:
@@ -12,9 +15,10 @@ import shutil
 import sys
 from pathlib import Path
 
-from project_config import CHARACTERS, OWNER_SHORTLIST, TARGET_PITCH_HZ
+from project_config import CHARACTERS, OWNER_SHORTLIST, SAME_VOICE_EVERYWHERE, TARGET_PITCH_HZ
 
 MAX_CER = 0.10
+MAX_PITCH_DISTANCE = 0.2  # share of the range's middle pitch
 
 
 def _pitch_distance(pitch: float, character: str) -> float:
@@ -28,6 +32,7 @@ def rank(rows: list[dict], character: str) -> list[dict]:
     usable = [
         r for r in rows
         if r["clip"].split("/")[0] == character and r.get("cer") not in ("", None) and float(r["cer"]) <= MAX_CER
+        and _pitch_distance(float(r["pitch_hz"]), character) <= MAX_PITCH_DISTANCE
     ]
     return sorted(usable, key=lambda r: (_pitch_distance(float(r["pitch_hz"]), character), float(r["cer"])))
 
@@ -44,6 +49,14 @@ def pick_provisional(takes_dir: Path, voices_dir: Path) -> dict:
     voices_dir.mkdir(parents=True, exist_ok=True)
     picks, record = {}, {}
     for character in CHARACTERS:
+        source = SAME_VOICE_EVERYWHERE.get(character)
+        if source and source != takes_dir.name:
+            english = voices_dir.parent / source
+            shutil.copy(english / f"{character}.wav", voices_dir / f"{character}.wav")  # new time: lines get redone
+            shutil.copy(english / f"{character}.txt", voices_dir / f"{character}.txt")
+            picks[character] = f"voices/{source}/{character}.wav"
+            record[character] = {"take": picks[character], "chosen_by": "same voice in every language (owner, 2026-11-08)"}
+            continue
         ranked = rank(rows, character)
         shortlist = OWNER_SHORTLIST.get(takes_dir.name, {}).get(character)
         if shortlist:

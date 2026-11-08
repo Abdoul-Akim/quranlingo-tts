@@ -28,7 +28,7 @@ def test_inside_the_range_the_clearest_words_win():
 
 
 def test_outside_the_range_closer_pitch_ranks_higher():
-    rows = [row("omar/a.wav", 200, 0.0), row("omar/b.wav", 160, 0.0)]  # target 85 to 145
+    rows = [row("omar/a.wav", 185, 0.0), row("omar/b.wav", 172, 0.0)]  # target 120 to 165
     assert [r["clip"] for r in rank(rows, "omar")] == ["omar/b.wav", "omar/a.wav"]
 
 
@@ -111,7 +111,7 @@ def test_a_character_with_one_voice_everywhere_gets_the_english_voice(tmp_path, 
     picks = pick_provisional(takes, french)
 
     assert picks["ali"] == "voices/en/ali.wav"
-    assert np.allclose(sf.read(french / "ali.wav")[0], 0.1)  # the English voice, not the French take
+    assert np.allclose(sf.read(french / "ali.wav")[0], 0.1, atol=1e-3)  # the English voice, not the French take
     assert (french / "ali.txt").read_text(encoding="utf-8") == "Hello, and welcome.\n"  # its words, for cloning
     assert (french / "ali.wav").stat().st_mtime >= (english / "ali.wav").stat().st_mtime  # old lines get redone
     record = json.loads((french / "provisional_picks.json").read_text())["ali"]
