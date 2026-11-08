@@ -28,7 +28,7 @@ def test_inside_the_range_the_clearest_words_win():
 
 
 def test_outside_the_range_closer_pitch_ranks_higher():
-    rows = [row("omar/a.wav", 185, 0.0), row("omar/b.wav", 172, 0.0)]  # target 120 to 165
+    rows = [row("omar/a.wav", 175, 0.0), row("omar/b.wav", 165, 0.0)]  # target 100 to 160
     assert [r["clip"] for r in rank(rows, "omar")] == ["omar/b.wav", "omar/a.wav"]
 
 

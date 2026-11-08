@@ -119,9 +119,9 @@ SAME_VOICE_EVERYWHERE = {"ali": "en"}
 # Set from the owner's English picks on 2026-11-08 (see tests/test_base_voices.py).
 TARGET_PITCH_HZ = {
     "ali": (185, 225),
-    "fatima": (175, 215),
-    "omar": (120, 165),
-    "zahra": (250, 345),
+    "fatima": (200, 240),  # from the fr, ar and de picks (2026-11-08)
+    "omar": (100, 160),
+    "zahra": (245, 295),
 }
 
 # The calm reference passage every voice reads. Same meaning in every language.
