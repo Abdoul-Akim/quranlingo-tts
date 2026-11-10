@@ -94,3 +94,20 @@ def test_a_character_with_one_voice_everywhere_has_no_base_question_in_other_lan
 def test_the_experiment_leaves_out_a_character_who_already_has_the_english_voice(project, monkeypatch):
     monkeypatch.setattr(make_round, "SAME_VOICE_EVERYWHERE", {"omar": "en"})
     assert experiment_items("fr", "voxcpm2", "en") == []  # e01 is Omar's only line
+
+
+def test_without_owner_picks_every_verified_take_is_offered_up_to_five(project):
+    # 2026-11-10: testers choose among all takes the system verified (pitch inside the target,
+    # words right), at most 5, the most a question can show.
+    base = project / "outputs" / "base_voices" / "en"
+    rows = []
+    for i, pitch in enumerate([250, 255, 260, 265, 270, 275, 330]):  # Zahra: six inside, one too high
+        clip = f"zahra/v4_seed{i + 1}.wav"
+        sf.write(base / clip, np.zeros(1600), 16000)
+        rows.append({"clip": clip, "pitch_hz": pitch, "cer": 0.0})
+    with (base / "checks.csv").open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=["clip", "pitch_hz", "cer"])
+        w.writeheader()
+        w.writerows(rows)
+    (item,) = base_items("en")
+    assert len(item["variants"]) == 5 and "zahra/v4_seed7.wav" not in [v for v, _ in item["variants"]]
