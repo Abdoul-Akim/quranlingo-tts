@@ -1,7 +1,7 @@
 # Turn clips into an anonymous listening round for the website.
 #
 # Kinds of round:
-#   base        Testers pick each character's base voice from the owner's shortlist, or else the top 3 takes.
+#   base        Testers pick each character's base voice: the owner's shortlist, or else every verified take (up to 5).
 #   engines     Testers compare the same line spoken by different engines.
 #   experiment  Testers compare a line in the native voice with the English voice speaking it.
 #
@@ -21,12 +21,13 @@ from pathlib import Path
 
 from owner_choices import OWNER_SHORTLIST, SAME_VOICE_EVERYWHERE
 from project_config import CHARACTER_LABELS, CHARACTERS
-from rank_takes import rank
+from rank_takes import for_owner, rank
 from text_rules import prepare_text
 
 TTS_DIR = Path(__file__).resolve().parents[1]
 
 TOP_TAKES = 3
+MAX_CLIPS = 5  # the most one question on the site can show (A to E)
 
 QUESTIONS = {
     "base": "Which voice fits this character best?",
@@ -50,7 +51,9 @@ def base_items(language: str) -> list[dict]:
         if SAME_VOICE_EVERYWHERE.get(character, language) != language:
             continue  # this character uses the English voice here, so there is nothing to choose
         shortlist = OWNER_SHORTLIST.get(language, {}).get(character)
-        best = shortlist or [r["clip"] for r in rank(rows, character)[:TOP_TAKES]]
+        # The owner's picks; else every verified take (up to MAX_CLIPS); else the closest few.
+        best = (shortlist or for_owner(rows, character, MAX_CLIPS)
+                or [r["clip"] for r in rank(rows, character)[:TOP_TAKES]])
         if best:
             items.append({
                 "item": character,
