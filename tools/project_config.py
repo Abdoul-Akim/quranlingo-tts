@@ -13,12 +13,7 @@ LANGUAGE_NAMES = {
 # Characters always appear in this order.
 CHARACTERS = ["ali", "fatima", "omar", "zahra"]
 
-CHARACTER_LABELS = {
-    "ali": "Ali (boy, 14)",
-    "fatima": "Fatima (woman, 29)",
-    "omar": "Omar (man, 50)",
-    "zahra": "Zahra (girl, 10)",
-}
+# Their names and ages as shown on the listening site, per language: tools/ui_text.py.
 
 # The calm reference passage every voice reads. Same meaning in every language.
 PASSAGES = {

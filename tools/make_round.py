@@ -20,9 +20,10 @@ import sys
 from pathlib import Path
 
 from owner_choices import OWNER_SHORTLIST, SAME_VOICE_EVERYWHERE
-from project_config import CHARACTER_LABELS, CHARACTERS
+from project_config import CHARACTERS
 from rank_takes import for_owner, rank
 from text_rules import prepare_text
+from ui_text import character_label, hint, line_label
 
 TTS_DIR = Path(__file__).resolve().parents[1]
 
@@ -34,13 +35,6 @@ QUESTIONS = {
     "engines": "Which sounds more natural and fits the emotion better?",
     "experiment": "Which voice sounds more natural in your language?",
 }
-
-# What testers are told each line should sound like.
-EMOTION_HINTS = {
-    "question": "a warm, clear question",
-    "option": "a warm, clear answer option",
-}
-
 
 def base_items(language: str) -> list[dict]:
     takes_dir = TTS_DIR / "outputs" / "base_voices" / language
@@ -57,7 +51,7 @@ def base_items(language: str) -> list[dict]:
         if best:
             items.append({
                 "item": character,
-                "label": CHARACTER_LABELS[character],
+                "label": character_label(character, language),
                 "variants": [(clip, takes_dir / clip) for clip in best],
             })
     return items
@@ -67,14 +61,12 @@ def _line_item(line: dict, language: str, number: int, total: int, wavs: list) -
     missing = [str(w) for _, w in wavs if not w.exists()]
     if missing:
         sys.exit(f"Missing clips: {', '.join(missing)}")
-    emotion = line["emotion"]
-    hint = EMOTION_HINTS.get(emotion, f"{emotion} ({line['intensity']})")
     return {
         "item": line["id"],
-        "label": f"Line {number} of {total}",
+        "label": line_label(number, total, language),
         # Show the text exactly as the engines spoke it, so testers can spot skipped words.
         "text": prepare_text(line["text"], language),
-        "hint": f"Should sound: {hint}",
+        "hint": hint(line["emotion"], line["intensity"], language),
         "variants": wavs,
     }
 

@@ -19,7 +19,7 @@ def test_every_label_exists_in_every_language(language):
 
 @pytest.mark.parametrize("language", [l for l in LANGUAGES if l != "en"])
 def test_other_languages_show_no_english_words(language):
-    english = ["woman", "girl", "boy", "man,", "Line", "Should sound", "warm", "question", "medium", "high"]
+    english = ["woman", "girl", "boy", "man,", "Line", "Should sound", "warm", "medium", "high"]  # "question" is French too
     shown = " ".join([character_label(c, language) for c in CHARACTERS] + [line_label(3, 16, language)]
                      + [hint(e, "medium", language) for e in EMOTIONS] + [hint("question", "fixed", language)])
     assert not [w for w in english if w in shown]
