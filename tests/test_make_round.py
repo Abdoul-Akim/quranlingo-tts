@@ -111,3 +111,9 @@ def test_without_owner_picks_every_verified_take_is_offered_up_to_five(project):
         w.writerows(rows)
     (item,) = base_items("en")
     assert len(item["variants"]) == 5 and "zahra/v4_seed7.wav" not in [v for v, _ in item["variants"]]
+
+
+def test_round_labels_are_in_the_page_language(project):
+    (item,) = experiment_items("fr", "voxcpm2", "en")
+    assert item["label"] == "Phrase 1 sur 1"
+    assert item["hint"] == "Ton attendu : triste (intensité faible)"
